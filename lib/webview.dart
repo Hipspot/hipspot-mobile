@@ -9,29 +9,6 @@ class Webview extends StatefulWidget {
 }
 
 class _WebviewState extends State<Webview> {
-  /*
-  import 'package:flutter/services.dart';
-  -> Package for editing status bar
-
-  // Status bar - hiding
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [
-      SystemUiOverlay.bottom,
-    ]);
-  }
-
-  // Status bar - transparent
-  @override
-  void initState() {
-    super.initState();
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
-  }
-  */
-
   // Preparation for the webview
   WebViewController controller = WebViewController()
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
