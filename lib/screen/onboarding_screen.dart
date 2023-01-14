@@ -29,8 +29,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    const _Title(),
-                    const _Skip(),
+                    _Title(),
+                    _Skip(),
                   ],
                 )),
             Expanded(
@@ -38,11 +38,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ImageAsset.signBoardHipspot.path,
               fit: BoxFit.fitWidth,
             )),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
-                child: const OnboardingFilterSelect(
-                  isSelected: true,
-                )),
+            const Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 0, 24),
+                child: OnboardingFilterSelect()),
             const _GoButton()
           ],
         ));
