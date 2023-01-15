@@ -5,49 +5,41 @@ import 'package:hipspot/const/filter_list.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/const/path/icon.dart';
 
-class OnboardingFilterSelect extends StatefulWidget {
-  const OnboardingFilterSelect({super.key});
+class OnboardingFilterSelect extends StatelessWidget {
+  OnboardingFilterSelect(
+      {super.key,
+      required this.onHandleIsSelected,
+      required this.selectedFilter});
 
-  @override
-  State<OnboardingFilterSelect> createState() => _OnboardingFilterSelectState();
-}
+  final FilterListEnum selectedFilter;
+  final Function onHandleIsSelected;
 
-class _OnboardingFilterSelectState extends State<OnboardingFilterSelect> {
-  FilterList selectedFilter = FilterList.hipSpot;
+  final List<FilterListEnum> firstRow = [
+    FilterListEnum.hipSpot,
+    FilterListEnum.study,
+    FilterListEnum.resonable
+  ];
+  final List<FilterListEnum> secondRow = [
+    FilterListEnum.dessert,
+    FilterListEnum.franchise,
+    FilterListEnum.independent,
+  ];
 
-  bool checkIsSelected(FilterList filterList) {
-    return filterList == selectedFilter ? true : false;
+  bool checkIsSelected(FilterListEnum filterListenum) {
+    return filterListenum == selectedFilter ? true : false;
   }
 
-  List<FilterList> firstRow = [
-    FilterList.hipSpot,
-    FilterList.study,
-    FilterList.resonable
-  ];
-  List<FilterList> secondRow = [
-    FilterList.dessert,
-    FilterList.franchise,
-    FilterList.independent,
-  ];
-
-  Widget getFilterRow(List<FilterList> filterInList) {
+  Widget getFilterRow(List<FilterListEnum> filterListRow) {
     return Row(
-      children: filterInList
-          .map((filter) => Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 24, 0),
-              child: Filter(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: filterListRow
+          .map((filter) => Filter(
                 filterName: filter.convertName,
                 isSelected: checkIsSelected(filter),
                 onTap: () => onHandleIsSelected(filter),
-              )))
+              ))
           .toList(),
     );
-  }
-
-  void onHandleIsSelected(FilterList filterList) {
-    setState(() {
-      selectedFilter = filterList;
-    });
   }
 
   @override
@@ -101,22 +93,24 @@ class Filter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: isSelected ? selectedBoxStyle : unSelectedBoxStyle,
+    return Padding(
+        padding: const EdgeInsets.only(right: 26),
         child: GestureDetector(
             onTap: onTap,
-            child: FittedBox(
-                child: Row(children: [
-              Container(
-                  child: isSelected
-                      ? SvgPicture.asset(IconAsset.flag.path,
-                          width: 20, height: 20, color: blackColor)
-                      : null),
-              const Padding(padding: EdgeInsets.only(right: 1)),
-              Text(
-                filterName,
-                style: isSelected ? selectedTextStyle : unSelectedTextStyle,
-              )
-            ]))));
+            child: Container(
+                decoration: isSelected ? selectedBoxStyle : unSelectedBoxStyle,
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  Container(
+                      child: isSelected
+                          ? SvgPicture.asset(IconAsset.flag.path,
+                              width: 20, height: 20, color: blackColor)
+                          : null),
+                  const Padding(padding: EdgeInsets.only(right: 6)),
+                  Text(
+                    filterName,
+                    style: isSelected ? selectedTextStyle : unSelectedTextStyle,
+                  ),
+                ]))));
   }
 }

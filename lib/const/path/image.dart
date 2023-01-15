@@ -1,9 +1,9 @@
 // 이미지 이름 그대로 enum에 작성해주세요;
-enum ImageAsset {
-  signBoardHipspot("signboard_hipspot"),
-  signboardStudy("signboard_study");
+enum SignboardImage {
+  hipspot("signboard/hipspot"),
+  study("signboard/study");
 
-  const ImageAsset(this.name);
+  const SignboardImage(this.name);
   final String name;
   final String pathPrifix = 'assets/images/';
   final String pathSuffix = '.png';

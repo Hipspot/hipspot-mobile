@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hipspot/component/onboarding_filter_image.dart';
 import 'package:hipspot/component/onboarding_filter_select.dart';
 import 'package:hipspot/const/color/black_and_white_color.dart';
-import 'package:hipspot/const/color/filter_list_color.dart';
 import 'package:hipspot/const/color/gray_scale_color.dart';
+import 'package:hipspot/const/filter_list.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/const/path/icon.dart';
-import 'package:hipspot/const/path/image.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -16,12 +16,39 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  FilterListEnum selectedFilter = FilterListEnum.hipSpot;
+
+  bool checkIsSelected(FilterListEnum FilterListEnum) {
+    return FilterListEnum == selectedFilter ? true : false;
+  }
+
+  void onHandleIsSelected(FilterListEnum FilterListEnum) {
+    print(FilterListEnum);
+    setState(() {
+      selectedFilter = FilterListEnum;
+    });
+  }
+
+  double imageTopMargin(BuildContext context) {
+    double titleHeight = 86;
+    double filterListEnumHeight = 96;
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double goButtonHeight = deviceHeight * 119 / 812;
+
+    double emptySpace = deviceHeight -
+        (titleHeight + deviceWidth + filterListEnumHeight + goButtonHeight);
+
+    return emptySpace > 0 ? emptySpace / 2 : 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         bottom: false,
         top: true,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           verticalDirection: VerticalDirection.down,
           children: [
@@ -33,15 +60,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     _Skip(),
                   ],
                 )),
-            Expanded(
-                child: Image.asset(
-              ImageAsset.signBoardHipspot.path,
-              fit: BoxFit.fitWidth,
-            )),
-            const Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 0, 24),
-                child: OnboardingFilterSelect()),
-            const _GoButton()
+            Container(
+              height: imageTopMargin(context),
+            ),
+            OnboardingFilterImage(selectedFilter: selectedFilter),
+            Padding(
+                padding: EdgeInsets.fromLTRB(20, 0, 20, 24),
+                child: OnboardingFilterSelect(
+                    onHandleIsSelected: onHandleIsSelected,
+                    selectedFilter: selectedFilter)),
+            _GoButton(
+              selectedFilter: selectedFilter,
+            )
           ],
         ));
   }
@@ -109,9 +139,10 @@ class _Skip extends StatelessWidget {
 }
 
 class _GoButton extends StatelessWidget {
+  const _GoButton({super.key, required this.selectedFilter});
   final String go = "GO!";
   final double buttonHeightRatio = 119 / 812;
-  const _GoButton({super.key});
+  final FilterListEnum selectedFilter;
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +152,7 @@ class _GoButton extends StatelessWidget {
         onTap: () => {print("tapped")},
         child: Container(
             height: MediaQuery.of(context).size.height * buttonHeightRatio,
-            decoration: BoxDecoration(color: pinkColor[1]),
+            decoration: BoxDecoration(color: selectedFilter.color),
             child: Padding(
                 padding: const EdgeInsets.fromLTRB(16, 24, 24, 0),
                 child: Row(
