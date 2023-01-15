@@ -16,26 +16,44 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  // state
+  FilterListEnum beforeSelectedFilter = FilterListEnum.hipSpot;
   FilterListEnum selectedFilter = FilterListEnum.hipSpot;
+  double beforeSelectedValue = 0;
 
-  bool checkIsSelected(FilterListEnum FilterListEnum) {
-    return FilterListEnum == selectedFilter ? true : false;
-  }
+  Map<FilterListEnum, double> beforeAnimateValueMap = {
+    FilterListEnum.hipSpot: 0,
+    FilterListEnum.study: 0,
+    FilterListEnum.resonable: 0,
+    FilterListEnum.dessert: 0,
+    FilterListEnum.franchise: 0,
+    FilterListEnum.independent: 0,
+  };
 
-  void onHandleIsSelected(FilterListEnum FilterListEnum) {
-    print(FilterListEnum);
+  // handler
+  void onHandleIsSelected(FilterListEnum filterListEnum, double value) {
+    if (filterListEnum == selectedFilter) return;
     setState(() {
-      selectedFilter = FilterListEnum;
+      beforeSelectedFilter = selectedFilter;
+      selectedFilter = filterListEnum;
+
+      for (var filter in FilterListEnum.values) {
+        if (filter == beforeSelectedFilter || filter == selectedFilter) {
+          continue;
+        }
+        beforeAnimateValueMap[filter] = 0;
+      }
+      beforeAnimateValueMap[beforeSelectedFilter] = value;
     });
   }
 
   double imageTopMargin(BuildContext context) {
+    // 중앙 이미지 위치 계산을 위해 필요한 값
     double titleHeight = 86;
     double filterListEnumHeight = 96;
     double deviceHeight = MediaQuery.of(context).size.height;
     double deviceWidth = MediaQuery.of(context).size.width;
     double goButtonHeight = deviceHeight * 119 / 812;
-
     double emptySpace = deviceHeight -
         (titleHeight + deviceWidth + filterListEnumHeight + goButtonHeight);
 
@@ -65,10 +83,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             OnboardingFilterImage(selectedFilter: selectedFilter),
             Padding(
-                padding: EdgeInsets.fromLTRB(20, 0, 20, 24),
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 24),
                 child: OnboardingFilterSelect(
+                    beforeAnimateValueMap: beforeAnimateValueMap,
                     onHandleIsSelected: onHandleIsSelected,
-                    selectedFilter: selectedFilter)),
+                    selectedFilter: selectedFilter,
+                    beforeSelectedFilter: beforeSelectedFilter)),
             _GoButton(
               selectedFilter: selectedFilter,
             )
@@ -164,7 +184,7 @@ class _GoButton extends StatelessWidget {
                               fontSize: 40,
                               color: blackColor,
                               fontFamily: FontFamily.pretendard.name,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                               fontStyle: FontStyle.italic,
                               letterSpacing: -2)),
                       SizedBox(
