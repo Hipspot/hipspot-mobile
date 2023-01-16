@@ -95,6 +95,18 @@ class _FilterState extends State<Filter> with SingleTickerProviderStateMixin {
     _controller =
         AnimationController(vsync: this, duration: filterTextDuration);
     _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+    _controller.forward();
+  }
+
+  @override
+  void didUpdateWidget(oldWiget) {
+    super.didUpdateWidget(oldWiget);
+    _controller.value = widget.beforeAnimateValue;
+    if (widget.beforeSelected && widget.beforeSelected != widget.isSelected) {
+      _controller.reverse();
+    } else {
+      _controller.forward();
+    }
   }
 
   @override
@@ -105,12 +117,6 @@ class _FilterState extends State<Filter> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    _controller.value = widget.beforeAnimateValue;
-    if (widget.beforeSelected && widget.beforeSelected != widget.isSelected) {
-      _controller.reverse();
-    } else {
-      _controller.forward();
-    }
     return GestureDetector(
         onTap: () => widget.onTap(_animation.value),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [

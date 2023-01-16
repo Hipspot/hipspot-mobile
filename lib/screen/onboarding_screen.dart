@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hipspot/component/onboarding_filter_image.dart';
 import 'package:hipspot/component/onboarding_filter_select.dart';
+import 'package:hipspot/component/onboarding_go_button.dart';
 import 'package:hipspot/const/color/black_and_white_color.dart';
 import 'package:hipspot/const/color/gray_scale_color.dart';
 import 'package:hipspot/const/filter_list.dart';
@@ -31,11 +32,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   };
 
   // handler
-  void onHandleIsSelected(FilterListEnum filterListEnum, double value) {
-    if (filterListEnum == selectedFilter) return;
+  void onHandleIsSelected(FilterListEnum tappedFilter, double value) {
+    if (tappedFilter == selectedFilter) return;
     setState(() {
       beforeSelectedFilter = selectedFilter;
-      selectedFilter = filterListEnum;
+      selectedFilter = tappedFilter;
 
       for (var filter in FilterListEnum.values) {
         if (filter == beforeSelectedFilter || filter == selectedFilter) {
@@ -59,15 +60,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           children: [
             const _Title(),
             const _Skip(),
-            OnboardingFilterImage(selectedFilter: selectedFilter),
+            OnboardingFilterImage(
+              selectedFilter: selectedFilter,
+              beforeSelectedFilter: beforeSelectedFilter,
+            ),
             OnboardingFilterSelect(
                 beforeAnimateValueMap: beforeAnimateValueMap,
                 onHandleIsSelected: onHandleIsSelected,
                 selectedFilter: selectedFilter,
                 beforeSelectedFilter: beforeSelectedFilter),
-            _GoButton(
-              selectedFilter: selectedFilter,
-            )
+            GoButton(
+                selectedFilter: selectedFilter,
+                beforeSelectedFilter: beforeSelectedFilter),
           ],
         ));
   }
@@ -136,44 +140,5 @@ class _Skip extends StatelessWidget {
             },
           ),
         ]));
-  }
-}
-
-class _GoButton extends StatelessWidget {
-  const _GoButton({super.key, required this.selectedFilter});
-  final String go = "GO!";
-  final double buttonHeightRatio = 119 / 812;
-  final FilterListEnum selectedFilter;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-        highlightColor: Colors.transparent,
-        splashColor: Colors.transparent,
-        onTap: () => {print("tapped")},
-        child: Container(
-            height: MediaQuery.of(context).size.height * buttonHeightRatio,
-            decoration: BoxDecoration(color: selectedFilter.color),
-            child: Padding(
-                padding: const EdgeInsets.fromLTRB(16, 24, 24, 0),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(go,
-                          style: TextStyle(
-                              fontSize: 40,
-                              color: blackColor,
-                              fontFamily: FontFamily.pretendard.name,
-                              fontWeight: FontWeight.w500,
-                              fontStyle: FontStyle.italic,
-                              letterSpacing: -2)),
-                      SizedBox(
-                          height: 40,
-                          child: Row(children: [
-                            SvgPicture.asset(IconAsset.longArrow.path,
-                                fit: BoxFit.none),
-                          ]))
-                    ]))));
   }
 }
