@@ -25,10 +25,23 @@ class OnboardingFilterImage extends StatelessWidget {
     return (contextWidth - circleWidth) / 2;
   }
 
+  // 중앙 이미지 위치 계산을 위해 필요한 값
+  double imageTopMargin(BuildContext context) {
+    double titleHeight = 86;
+    double filterListEnumHeight = 96;
+    double deviceHeight = MediaQuery.of(context).size.height;
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double goButtonHeight = deviceHeight * 119 / 812;
+    double emptySpace = deviceHeight -
+        (titleHeight + deviceWidth + filterListEnumHeight + goButtonHeight);
+    return emptySpace > 0 ? emptySpace / 2 : 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
         child: Container(
+            padding: EdgeInsets.only(top: imageTopMargin(context)),
             constraints: BoxConstraints(
                 //signboard 이미지 Stack에 구현, 디바이스 Width에 맞춰 고정
                 minWidth: deviceWidth(context),

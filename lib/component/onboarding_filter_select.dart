@@ -32,7 +32,7 @@ class OnboardingFilterSelect extends StatelessWidget {
     FilterListEnum.independent,
   ];
 
-  Widget getFilterRow(List<FilterListEnum> filterListRow) {
+  Widget getFilterRowFromList(List<FilterListEnum> filterListRow) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: filterListRow
@@ -54,13 +54,15 @@ class OnboardingFilterSelect extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        getFilterRow(firstRow),
-        const Padding(padding: EdgeInsets.only(top: 6)),
-        getFilterRow(secondRow),
-      ],
-    );
+    return Padding(
+        padding: const EdgeInsets.fromLTRB(20, 0, 0, 24),
+        child: Column(
+          children: [
+            getFilterRowFromList(firstRow),
+            const Padding(padding: EdgeInsets.only(top: 6)),
+            getFilterRowFromList(secondRow),
+          ],
+        ));
   }
 }
 
