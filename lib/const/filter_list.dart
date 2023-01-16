@@ -56,13 +56,13 @@ extension FilterListEnumParsing on FilterListEnum {
       case FilterListEnum.study:
         return SignboardImage.study.path;
       case FilterListEnum.resonable:
-        return SignboardImage.hipspot.path;
+        return SignboardImage.resonable.path;
       case FilterListEnum.dessert:
-        return SignboardImage.hipspot.path;
+        return SignboardImage.dessert.path;
       case FilterListEnum.franchise:
-        return SignboardImage.hipspot.path;
+        return SignboardImage.franchise.path;
       case FilterListEnum.independent:
-        return SignboardImage.hipspot.path;
+        return SignboardImage.independent.path;
       default:
         return "";
     }
