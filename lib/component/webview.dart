@@ -95,7 +95,7 @@ class TestButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        child: Text('test'),
+        child: const Text('test'),
         onPressed: () {
           sendToWeb(TransferMessageModel(
               type: FromFlutterFunctionList.initFilterling, data: "test"));
