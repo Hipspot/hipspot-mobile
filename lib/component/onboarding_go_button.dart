@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hipspot/component/slide_right_route.dart';
+import 'package:hipspot/component/webview.dart';
 import 'package:hipspot/const/color/black_and_white_color.dart';
 import 'package:hipspot/const/duration.dart';
 import 'package:hipspot/const/filter_list.dart';
@@ -60,7 +62,9 @@ class _GoButtonState extends State<GoButton>
     return InkWell(
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
-        onTap: () => {print("tapped")},
+        onTap: () => {
+              Navigator.of(context).push(SlideRightRoute(page: const Webview()))
+            },
         child: AnimatedBuilder(
             animation: _color,
             builder: (context, child) => Container(
