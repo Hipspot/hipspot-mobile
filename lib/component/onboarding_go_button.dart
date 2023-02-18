@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hipspot/component/slide_right_route.dart';
-import 'package:hipspot/component/webview.dart';
+import 'package:hipspot/component/Webview/webview.dart';
 import 'package:hipspot/const/color/black_and_white_color.dart';
 import 'package:hipspot/const/duration.dart';
 import 'package:hipspot/const/filter_list.dart';
