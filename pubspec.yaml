@@ -31,6 +31,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/images/signboard/
+    - assets/images/bottombar/
     - assets/icons/
 
   fonts:

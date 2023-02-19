@@ -10,14 +10,14 @@ import 'package:hipspot/const/js_channel_name.dart';
 import 'package:hipspot/model/trensfer_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Webview extends StatefulWidget {
-  const Webview({Key? key}) : super(key: key);
+class WebviewScreen extends StatefulWidget {
+  const WebviewScreen({Key? key}) : super(key: key);
 
   @override
-  State<Webview> createState() => _WebviewState();
+  State<WebviewScreen> createState() => _WebviewScreenState();
 }
 
-class _WebviewState extends State<Webview> {
+class _WebviewScreenState extends State<WebviewScreen> {
   WebViewController ?createWebViewController() {
     late final PlatformWebViewControllerCreationParams params;
     if (WebViewPlatform.instance is WebKitWebViewPlatform) {
