@@ -11,7 +11,7 @@ class _MypageScreenState extends State<MypageScreen> {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text('My Page'),
+      child: Text('MyPage Screen'),
     );
   }
 }
