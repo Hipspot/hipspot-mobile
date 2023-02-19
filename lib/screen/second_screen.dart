@@ -35,26 +35,17 @@ class _SecondScreenState extends State<SecondScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image.asset('assets/images/bottombar/map.png', width: 32, height: 32),
-            activeIcon: ColorFiltered(
-              colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
-              child: Image.asset('assets/images/bottombar/map.png', width: 32, height: 32),
-            ),
+            activeIcon: Image.asset('assets/images/bottombar/map_on.png', width: 32, height: 32),
             label: '지도',
           ),
           BottomNavigationBarItem(
             icon: Image.asset('assets/images/bottombar/recommend.png', width: 32, height: 32),
-            activeIcon: ColorFiltered(
-              colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
-              child: Image.asset('assets/images/bottombar/recommend.png', width: 32, height: 32),
-            ),
+            activeIcon: Image.asset('assets/images/bottombar/recommend_on.png', width: 32, height: 32),
             label: '추천',
           ),
           BottomNavigationBarItem(
             icon: Image.asset('assets/images/bottombar/mypage.png', width: 32, height: 32),
-            activeIcon: ColorFiltered(
-              colorFilter: const ColorFilter.mode(Colors.black, BlendMode.srcIn),
-              child: Image.asset('assets/images/bottombar/mypage.png', width: 32, height: 32),
-            ),
+            activeIcon: Image.asset('assets/images/bottombar/mypage_on.png', width: 32, height: 32),
             label: '마이페이지',
           )
         ],
