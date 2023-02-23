@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hipspot/component/slide_right_route.dart';
-import 'package:hipspot/screen/pages/webview_screen.dart';
 import 'package:hipspot/const/color/black_and_white_color.dart';
 import 'package:hipspot/const/duration.dart';
 import 'package:hipspot/const/filter_list.dart';
@@ -64,7 +63,8 @@ class _GoButtonState extends State<GoButton>
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         onTap: () => {
-              Navigator.of(context).push(SlideRightRoute(page: const SecondScreen()))
+              Navigator.of(context)
+                  .push(SlideRightRoute(page: const SecondScreen()))
             },
         child: AnimatedBuilder(
             animation: _color,
