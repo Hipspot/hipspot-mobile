@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hipspot/component/Webview/webview.dart';
 import 'package:hipspot/screen/pages/mypage_screen.dart';
 import 'package:hipspot/screen/pages/recommend_screen.dart';
-import 'package:hipspot/screen/pages/webview_screen.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class _SecondScreenState extends State<SecondScreen> {
       body: IndexedStack(
         index: _selectedIndex,
         children: const [
-          WebviewScreen(),
+          Webview(),
           RecommendScreen(),
           MypageScreen(),
         ],

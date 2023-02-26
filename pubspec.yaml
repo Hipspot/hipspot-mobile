@@ -16,6 +16,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   webview_flutter: ^4.0.2
   geolocator: ^9.0.2
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -31,6 +32,7 @@ flutter:
     - assets/images/
     - assets/images/signboard/
     - assets/images/bottombar/
+    - assets/images/recommends/
     - assets/icons/
 
   fonts:
