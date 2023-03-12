@@ -3,6 +3,8 @@ import 'package:hipspot/component/Webview/webview.dart';
 import 'package:hipspot/screen/pages/mypage_screen.dart';
 import 'package:hipspot/screen/pages/recommend_screen.dart';
 
+import '../component/custom_modal.dart';
+
 class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);
 
@@ -14,9 +16,18 @@ class _SecondScreenState extends State<SecondScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 2) { // index 2 represents the third item
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const CustomModal();
+        },
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
