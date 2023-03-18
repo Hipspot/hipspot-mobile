@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/const/path/icon.dart';
+
+import '../const/color/gray_scale_color.dart';
 
 class MypageScreen extends StatefulWidget {
   const MypageScreen({Key? key}) : super(key: key);
@@ -16,7 +19,9 @@ class _MypageScreenState extends State<MypageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
+    return SafeArea(
+        top: false,
+        child: Scaffold(
       appBar: renderAppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
@@ -40,8 +45,13 @@ class _MypageScreenState extends State<MypageScreen> {
 
   PreferredSizeWidget renderAppBar() {
     return AppBar(
+      systemOverlayStyle: SystemUiOverlayStyle(
+        statusBarColor: grayScaleColor[10],
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.light
+      ),
       toolbarHeight: openMenu ? 340 : 110,
-      backgroundColor: Colors.black,
+      backgroundColor: grayScaleColor[10],
       title: Column(
         children: [
           Row(
