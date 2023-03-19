@@ -39,40 +39,33 @@ class CustomModal extends StatelessWidget {
               const SizedBox(height: 16),
               Image.asset('assets/images/mypage/join_hipspot.png'),
               const SizedBox(height: 8),
-              GestureDetector(
-                onTap: () {},
-                child: InkWell(
-                  onTap: () {
-                    // Handle the tap event here
-                  },
-                  splashColor: Colors.grey.withOpacity(0.5), // Set the color of the ripple effect
-                  highlightColor: Colors.white.withOpacity(0.5), // Set a light color for the highlight effect
-                  child: Image.asset(
-                    'assets/images/mypage/via_apple.png',
-                    width: 247,
-                    height: 56,
-                    fit: BoxFit.cover,
+              Material(
+                color: Colors.transparent,
+                child: Ink.image(
+                  image: const AssetImage('assets/images/mypage/via_apple.png'),
+                  width: 247,
+                  height: 56,
+                  fit: BoxFit.cover,
+                  child: InkWell(
+                    onTap: () {},
                   ),
                 ),
               ),
               const SizedBox(height: 8),
-              GestureDetector(
-                onTap: () {},
-                child: InkWell(
-                  onTap: () {
-                    // Handle the tap event here
-                  },
-                  splashColor: Colors.grey.withOpacity(0.5), // Set the color of the ripple effect
-                  child: Image.asset(
-                    'assets/images/mypage/via_google.png',
-                    width: 247,
-                    height: 56,
-                    fit: BoxFit.cover,
+              Material(
+                color: Colors.transparent,
+                child: Ink.image(
+                  image: const AssetImage('assets/images/mypage/via_google.png'),
+                  width: 247,
+                  height: 56,
+                  fit: BoxFit.cover,
+                  child: InkWell(
+                    onTap: () {},
                   ),
                 ),
               ),
               const Spacer(),
-              GestureDetector(
+              InkWell(
                 onTap: () {
                   Navigator.pop(context);
                 },
