@@ -3,7 +3,6 @@ description: A new Flutter project.
 
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
-
 version: 1.0.0+1
 
 environment:
@@ -17,21 +16,25 @@ dependencies:
   cupertino_icons: ^1.0.2
   webview_flutter: ^4.0.2
   geolocator: ^9.0.2
+  carousel_slider: ^4.2.1
+  http: ^0.13.5
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-    
+
   flutter_lints: ^2.0.0
 
 flutter:
-
   uses-material-design: true
 
   assets:
     - assets/
     - assets/images/
     - assets/images/signboard/
+    - assets/images/bottombar/
+    - assets/images/recommends/
+    - assets/images/mypage/
     - assets/icons/
 
   fonts:
@@ -53,4 +56,3 @@ flutter:
     - family: AppleSDGothicNeo
       fonts:
         - asset: assets/fonts/AppleSDGothicNeo.ttc
-

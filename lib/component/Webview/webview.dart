@@ -22,7 +22,7 @@ class _WebviewState extends State<Webview> {
   int loadingProgress = 0;
 
   late final WebViewController _controller = createWebViewController()
-    ..loadRequest(Uri.parse('http://localhost:3000/'))
+    ..loadRequest(Uri.parse('https://hipspot.netlify.app/'))
     ..setNavigationDelegate(customedNavigationDelegate);
 
   @override
