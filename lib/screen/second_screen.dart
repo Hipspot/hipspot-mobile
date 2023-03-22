@@ -3,7 +3,8 @@ import 'package:hipspot/component/Webview/webview.dart';
 import 'package:hipspot/screen/pages/mypage_screen.dart';
 import 'package:hipspot/screen/pages/recommend_screen.dart';
 
-import '../component/custom_modal.dart';
+import '../component/login.dart';
+import '../component/delete_account.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _SecondScreenState extends State<SecondScreen> {
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const CustomModal();
+          return const DeleteAccount();
         },
       );
     } else {
