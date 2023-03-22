@@ -12,7 +12,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Scaffold(extendBody: true, body: OnboardingScreen()),
+        home: Scaffold(
+            extendBody: true,
+            body: OnboardingScreen(),
+        ),
     );
   }
 }

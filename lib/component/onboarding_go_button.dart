@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hipspot/component/slide_right_route.dart';
-import 'package:hipspot/component/Webview/webview.dart';
 import 'package:hipspot/const/color/black_and_white_color.dart';
 import 'package:hipspot/const/duration.dart';
 import 'package:hipspot/const/filter_list.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/const/path/icon.dart';
+import 'package:hipspot/screen/second_screen.dart';
 
 class GoButton extends StatefulWidget {
   const GoButton(
@@ -63,7 +63,8 @@ class _GoButtonState extends State<GoButton>
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
         onTap: () => {
-              Navigator.of(context).push(SlideRightRoute(page: const Webview()))
+              Navigator.of(context)
+                  .push(SlideRightRoute(page: const SecondScreen()))
             },
         child: AnimatedBuilder(
             animation: _color,
