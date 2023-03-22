@@ -1,5 +1,7 @@
 enum IconAsset {
   flag('flag'),
+  starFilled('star_filled'),
+  starOutlined('star_outlined'),
   longArrow('long_arrow');
 
   const IconAsset(this.name);

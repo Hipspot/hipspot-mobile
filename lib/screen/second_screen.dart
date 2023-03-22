@@ -16,12 +16,15 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen> {
   int _selectedIndex = 0;
 
+/*
+  This code is used when tapping the 'MyPage' button without logged in.
+
   void _onItemTapped(int index) {
     if (index == 2) { // index 2 represents the third item
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const DeleteAccount();
+          return const Login();
         },
       );
     } else {
@@ -29,6 +32,13 @@ class _SecondScreenState extends State<SecondScreen> {
         _selectedIndex = index;
       });
     }
+  }
+ */
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
