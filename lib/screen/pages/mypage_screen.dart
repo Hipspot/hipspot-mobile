@@ -92,9 +92,11 @@ class _MypageScreenState extends State<MypageScreen> {
                     InkWell(
                       child: Text("회원탈퇴", style: defaultTextStyle.copyWith(fontSize: 16, color: const Color(0xFFCCCCCC))),
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const DeleteAccount()),
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return const DeleteAccount();
+                          },
                         );
                       },
                     ),
