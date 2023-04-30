@@ -3,7 +3,8 @@ import 'package:hipspot/component/Webview/webview.dart';
 import 'package:hipspot/screen/pages/mypage_screen.dart';
 import 'package:hipspot/screen/pages/recommend_screen.dart';
 
-import '../component/custom_modal.dart';
+import '../component/login.dart';
+import '../component/delete_account.dart';
 
 class SecondScreen extends StatefulWidget {
   const SecondScreen({Key? key}) : super(key: key);
@@ -15,12 +16,15 @@ class SecondScreen extends StatefulWidget {
 class _SecondScreenState extends State<SecondScreen> {
   int _selectedIndex = 0;
 
+/*
+  This code is used when tapping the 'MyPage' button without logged in.
+
   void _onItemTapped(int index) {
     if (index == 2) { // index 2 represents the third item
       showDialog(
         context: context,
         builder: (BuildContext context) {
-          return const CustomModal();
+          return const Login();
         },
       );
     } else {
@@ -28,6 +32,13 @@ class _SecondScreenState extends State<SecondScreen> {
         _selectedIndex = index;
       });
     }
+  }
+ */
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:hipspot/screen/mypage_screen.dart';
+import 'package:flutter/services.dart';
 import 'package:hipspot/screen/onboarding_screen.dart';
+import 'package:hipspot/splash_screen.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+  ));
   runApp(const MyApp());
 }
 
@@ -12,10 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        home: Scaffold(
-            extendBody: true,
-            body: OnboardingScreen(),
-        ),
+        home: SplashScreen(),
     );
   }
 }
