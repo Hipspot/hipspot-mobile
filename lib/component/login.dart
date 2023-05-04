@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -55,12 +56,20 @@ class Login extends StatelessWidget {
               Material(
                 color: Colors.transparent,
                 child: Ink.image(
-                  image: const AssetImage('assets/images/mypage/via_google.png'),
+                  image:
+                      const AssetImage('assets/images/mypage/via_google.png'),
                   width: 247,
                   height: 56,
                   fit: BoxFit.cover,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      final result = await FlutterWebAuth.authenticate(
+                        url: 'https://api.hipspot.xyz/auth/login/google',
+                        callbackUrlScheme: 'hipspot-flutter',
+                      );
+                      final token = Uri.parse(result).queryParameters['token'];
+                      print(token);
+                    },
                   ),
                 ),
               ),

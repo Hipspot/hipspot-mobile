@@ -18,6 +18,7 @@ dependencies:
   geolocator: ^9.0.2
   carousel_slider: ^4.2.1
   http: ^0.13.5
+  flutter_web_auth: ^0.5.0
 
 dev_dependencies:
   flutter_test:
