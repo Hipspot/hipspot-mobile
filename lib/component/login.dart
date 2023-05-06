@@ -63,12 +63,16 @@ class Login extends StatelessWidget {
                   fit: BoxFit.cover,
                   child: InkWell(
                     onTap: () async {
+                      const APP_REDIRECT_URI = "hipspot-mobile";
+
                       final result = await FlutterWebAuth.authenticate(
-                        url: 'https://api.hipspot.xyz/auth/login/google',
-                        callbackUrlScheme: 'hipspot-flutter',
+                        url:
+                            'https://api.hipspot.xyz/auth/login/google?redirect_uri=$APP_REDIRECT_URI',
+                        callbackUrlScheme: APP_REDIRECT_URI,
                       );
-                      final token = Uri.parse(result).queryParameters['token'];
-                      print(token);
+                      final accessToken =
+                          Uri.parse(result).queryParameters['access_token'];
+                      debugPrint(accessToken);
                     },
                   ),
                 ),
