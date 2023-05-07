@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:hipspot/screen/future_builder/fb_closest.dart';
-import 'package:hipspot/screen/future_builder/fb_high_rated.dart';
-import 'package:hipspot/screen/future_builder/fb_newly_opened.dart';
 
 class ImageSlider extends StatefulWidget {
-  final List<int> list;
+  final List<String> list;
   final String text;
   final String subtext;
 
@@ -18,7 +15,6 @@ class ImageSlider extends StatefulWidget {
 }
 
 class _ImageSliderState extends State<ImageSlider> {
-  late String first = widget.text[0];
 
   late final List<Widget> imageSliders = widget.list
       .map((item) => Container(
@@ -28,14 +24,8 @@ class _ImageSliderState extends State<ImageSlider> {
                 child: Stack(
                   children: <Widget>[
                     // 수정 필요한 부분
-                    if(first == '현')
-                      FbClosest(rank: item)
-                    else if(first == '후')
-                      FbHighRated(rank: item)
-                    else if(first == '새')
-                      FbNewlyOpened(rank: item)
-                    else
-                      FbNewlyOpened(rank: item),
+                    Image.network(item,
+                        width: 280, height: 416, fit: BoxFit.fill),
                     Positioned(
                       bottom: 0.0,
                       left: 0.0,
@@ -73,7 +63,7 @@ class _ImageSliderState extends State<ImageSlider> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.subtext != '') ...[
+        if (widget.subtext.isNotEmpty) ...[
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 40, 0, 0),
             child: Text(
@@ -110,7 +100,7 @@ class _ImageSliderState extends State<ImageSlider> {
         CarouselSlider(
           options: CarouselOptions(
               height: 416,
-              viewportFraction: 0.8,
+              viewportFraction: 0.74,
               enlargeCenterPage: false,
               enlargeStrategy: CenterPageEnlargeStrategy.height,
               enableInfiniteScroll: false,

@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:hipspot/component/Recommend/imageslider.dart';
+import 'package:hipspot/component/Recommend/Recommend.dart';
+import 'package:hipspot/const/texts.dart';
+import 'package:hipspot/services/remote_service.dart';
+
+import '../../model/recommend_page/closest.dart';
+import '../../model/recommend_page/high_rated.dart';
+import '../../model/recommend_page/newly_opened.dart';
 
 class RecommendScreen extends StatefulWidget {
   const RecommendScreen({Key? key}) : super(key: key);
@@ -9,18 +15,62 @@ class RecommendScreen extends StatefulWidget {
 }
 
 class _RecommendScreenState extends State<RecommendScreen> {
+  List<Closest>? closestList;
+  List<HighRated>? highRatedList;
+  List<NewlyOpened>? newlyOpenedList;
+
+  var allLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // fetch data from API
+    getData();
+  }
+
+  getData() async {
+    closestList = await RemoteService().getClosest();
+    highRatedList = await RemoteService().getHighRated();
+    newlyOpenedList = await RemoteService().getNewlyOpened();
+
+    if (closestList != null && highRatedList != null && newlyOpenedList != null) {
+      setState(() {
+        allLoaded = true;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: const [
-            // map 해보기
-            ImageSlider(text: '현재 위치에서 가장 가까운 카페', subtext: '', list: [0, 1, 2]),
-            ImageSlider(text: '후기가 좋은 카페', subtext: '리뷰수와 평점을 고려했어요', list: [0, 1, 2]),
-            ImageSlider(text: '새로 오픈한 카페', subtext: '', list: [0, 1, 2]),
-            ImageSlider(text: '또 가고싶은 카페', subtext: '많은 유저들이 즐겨찾기한 카페', list: [0, 1, 2]),
-          ],
-        ));
+    return Visibility(
+      visible: allLoaded,
+      replacement: const Center(
+          child: CircularProgressIndicator()
+      ),
+      child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            children: [
+              // map 해보기
+              // 3장만 받지 말고 있는 사진 다 가져오기
+              ImageSlider(
+                  text: Texts.closestText.toString(),
+                  subtext: Texts.closestSubText.toString(),
+                  list: closestList?.map((e) => e.imageUrl[0]).toList() ?? []),
+              ImageSlider(
+                  text: Texts.highRatedText.toString(),
+                  subtext: Texts.highRatedSubText.toString(),
+                  list: highRatedList?.map((e) => e.imageUrl[0]).toList() ?? []),
+              ImageSlider(
+                  text: Texts.newlyOpenedText.toString(),
+                  subtext: Texts.newlyOpenedSubText.toString(),
+                  list: newlyOpenedList?.map((e) => e.imageUrl[0]).toList() ?? []),
+              ImageSlider(
+                  text: Texts.popularText.toString(),
+                  subtext: Texts.popularSubText.toString(),
+                  list: closestList?.map((e) => e.imageUrl[0]).toList() ?? []),
+            ],
+          )),
+    );
   }
 }
