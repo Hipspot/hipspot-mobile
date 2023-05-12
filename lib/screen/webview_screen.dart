@@ -11,14 +11,14 @@ import 'package:hipspot/const/channel_name.dart';
 import 'package:hipspot/model/trensfer_message_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Webview extends StatefulWidget {
-  const Webview({Key? key}) : super(key: key);
+class WebviewScreen extends StatefulWidget {
+  const WebviewScreen({Key? key}) : super(key: key);
 
   @override
-  State<Webview> createState() => _WebviewState();
+  State<WebviewScreen> createState() => _WebviewScreenState();
 }
 
-class _WebviewState extends State<Webview> {
+class _WebviewScreenState extends State<WebviewScreen> {
   int loadingProgress = 0;
 
   late final WebViewController _controller = createWebViewController()

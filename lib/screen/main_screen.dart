@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hipspot/component/Webview/webview.dart';
+import 'package:hipspot/screen/webview_screen.dart';
 import 'package:hipspot/component/login.dart';
 import 'package:hipspot/screen/mypage_screen.dart';
 import 'package:hipspot/screen/recommend_screen.dart';
@@ -40,7 +40,7 @@ class _MainScreenState extends State<MainScreen> {
       body: IndexedStack(
         index: _selectedIndex,
         children: const [
-          Webview(),
+          WebviewScreen(),
           RecommendScreen(),
           MypageScreen(),
         ],

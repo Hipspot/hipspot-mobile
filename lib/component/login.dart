@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_web_auth/flutter_web_auth.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+// 추후 const로 옮기기
+const APP_REDIRECT_URI = "hipspot-mobile";
+const GOOGLE_AUTH_URI_BASE = 'https://api.hipspot.xyz/auth/login/google';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -55,12 +61,31 @@ class Login extends StatelessWidget {
               Material(
                 color: Colors.transparent,
                 child: Ink.image(
-                  image: const AssetImage('assets/images/mypage/via_google.png'),
+                  image:
+                      const AssetImage('assets/images/mypage/via_google.png'),
                   width: 247,
                   height: 56,
                   fit: BoxFit.cover,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      const storage = FlutterSecureStorage();
+
+                      final result = await FlutterWebAuth.authenticate(
+                        url:
+                            '$GOOGLE_AUTH_URI_BASE?platform=mobile', // 쿼리 형식으로 platform=mobile 이라는 값을 전달해주면, 서버에서 스케마에 맞게 자동 리다이렉트
+                        callbackUrlScheme: APP_REDIRECT_URI,
+                      );
+                      final accessToken =
+                          Uri.parse(result).queryParameters['access_token'];
+
+                      final refreshToken =
+                          Uri.parse(result).queryParameters['refresh_token'];
+
+                      await storage.write(
+                          key: 'accessToken', value: accessToken);
+                      await storage.write(
+                          key: 'refreshToken', value: refreshToken);
+                    },
                   ),
                 ),
               ),
