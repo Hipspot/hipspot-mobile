@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hipspot/component/Webview/webview.dart';
+import 'package:hipspot/component/login.dart';
 import 'package:hipspot/screen/mypage_screen.dart';
 import 'package:hipspot/screen/recommend_screen.dart';
 
@@ -12,27 +14,21 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
+  final storage = FlutterSecureStorage();
 
-/*
-  This code is used when tapping the 'MyPage' button without logged in.
+  void _onItemTapped(int index) async {
+    if (index == 2) {
+      String? accessToken = await storage.read(key: 'accessToken');
+      String? refreshToken = await storage.read(key: 'refreshToken');
 
-  void _onItemTapped(int index) {
-    if (index == 2) { // index 2 represents the third item
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const Login();
-        },
-      );
-    } else {
-      setState(() {
-        _selectedIndex = index;
-      });
+      if (accessToken == null || refreshToken == null) {
+        return showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const Login();
+            });
+      }
     }
-  }
- */
-
-  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
