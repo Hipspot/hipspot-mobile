@@ -16,13 +16,21 @@ packages:
       sha256: "6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66"
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
     version: "2.1.1"
+=======
+    version: "2.1.0"
+>>>>>>> develop
   carousel_slider:
     dependency: "direct main"
     description:
       name: carousel_slider
+<<<<<<< HEAD
       sha256: "9c695cc963bf1d04a47bd6021f68befce8970bcd61d24938e1fb0918cf5d9c42"
       url: "https://pub.dev"
+=======
+      url: "https://pub.dartlang.org"
+>>>>>>> develop
     source: hosted
     version: "4.2.1"
   characters:
@@ -204,16 +212,24 @@ packages:
     dependency: "direct main"
     description:
       name: http
+<<<<<<< HEAD
       sha256: "6aa2946395183537c8b880962d935877325d6a09a2867c3970c05c0fed6ac482"
       url: "https://pub.dev"
+=======
+      url: "https://pub.dartlang.org"
+>>>>>>> develop
     source: hosted
     version: "0.13.5"
   http_parser:
     dependency: transitive
     description:
       name: http_parser
+<<<<<<< HEAD
       sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
       url: "https://pub.dev"
+=======
+      url: "https://pub.dartlang.org"
+>>>>>>> develop
     source: hosted
     version: "4.0.2"
   js:
@@ -348,13 +364,21 @@ packages:
       sha256: ad540f65f92caa91bf21dfc8ffb8c589d6e4dc0c2267818b4cc2792857706206
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
     version: "0.4.16"
+=======
+    version: "0.4.12"
+>>>>>>> develop
   typed_data:
     dependency: transitive
     description:
       name: typed_data
+<<<<<<< HEAD
       sha256: "26f87ade979c47a150c9eaab93ccd2bebe70a27dc0b4b29517f2904f04eb11a5"
       url: "https://pub.dev"
+=======
+      url: "https://pub.dartlang.org"
+>>>>>>> develop
     source: hosted
     version: "1.3.1"
   vector_math:
