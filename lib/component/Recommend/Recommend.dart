@@ -15,6 +15,7 @@ class ImageSlider extends StatefulWidget {
 }
 
 class _ImageSliderState extends State<ImageSlider> {
+
   late final List<Widget> imageSliders = widget.list
       .map((item) => Container(
             margin: const EdgeInsets.all(5.0),
@@ -22,7 +23,8 @@ class _ImageSliderState extends State<ImageSlider> {
                 borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 child: Stack(
                   children: <Widget>[
-                    Image.asset(item,
+                    // 수정 필요한 부분
+                    Image.network(item,
                         width: 280, height: 416, fit: BoxFit.fill),
                     Positioned(
                       bottom: 0.0,
@@ -61,7 +63,7 @@ class _ImageSliderState extends State<ImageSlider> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.subtext != '') ...[
+        if (widget.subtext.isNotEmpty) ...[
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 40, 0, 0),
             child: Text(
@@ -98,7 +100,7 @@ class _ImageSliderState extends State<ImageSlider> {
         CarouselSlider(
           options: CarouselOptions(
               height: 416,
-              viewportFraction: 0.8,
+              viewportFraction: 0.74,
               enlargeCenterPage: false,
               enlargeStrategy: CenterPageEnlargeStrategy.height,
               enableInfiniteScroll: false,
