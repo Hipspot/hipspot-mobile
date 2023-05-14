@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/const/path/icon.dart';
@@ -139,6 +140,21 @@ class _MypageScreenState extends State<MypageScreen> {
                           );
                         },
                       ),
+                      /* 로그아웃 
+                      const SizedBox(width: 20),
+                      Container(
+                          width: 1, height: 16, color: const Color(0xFF404040)),
+                      const SizedBox(width: 20),
+                      InkWell(
+                        child: Text("로그아웃",
+                            style: defaultTextStyle.copyWith(
+                                fontSize: 16, color: const Color(0xFFCCCCCC))),
+                        onTap: () {
+                          const storage = FlutterSecureStorage();
+                          storage.deleteAll();
+                        },
+                      ), 
+                      */
                     ],
                   )
                 ],

@@ -1,3 +1,4 @@
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hipspot/const/channel_function_list.dart';
 import 'package:hipspot/const/channel_name.dart';
@@ -24,6 +25,11 @@ class ReceivedMessageHandler {
         }
       case WebToAppFunctionsList.getAuth:
         {
+          const storage = FlutterSecureStorage();
+          final accessToken = await storage.read(key: 'accessToken');
+          TransferMessage message = TransferMessage(
+              type: AppToWebFunctionList.setAuth.name, data: accessToken);
+          sendToWeb(message, controller);
           print("getAuth 실행");
           return;
         }
