@@ -33,7 +33,9 @@ class _RecommendScreenState extends State<RecommendScreen> {
     highRatedList = await RemoteService().getHighRated();
     newlyOpenedList = await RemoteService().getNewlyOpened();
 
-    if (closestList != null && highRatedList != null && newlyOpenedList != null) {
+    if (closestList != null &&
+        highRatedList != null &&
+        newlyOpenedList != null) {
       setState(() {
         allLoaded = true;
       });
@@ -42,35 +44,40 @@ class _RecommendScreenState extends State<RecommendScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: allLoaded,
-      replacement: const Center(
-          child: CircularProgressIndicator()
-      ),
-      child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              // map 해보기
-              // 3장만 받지 말고 있는 사진 다 가져오기
-              ImageSlider(
-                  text: Texts.closestText.toString(),
-                  subtext: Texts.closestSubText.toString(),
-                  list: closestList?.map((e) => e.imageUrl[0]).toList() ?? []),
-              ImageSlider(
-                  text: Texts.highRatedText.toString(),
-                  subtext: Texts.highRatedSubText.toString(),
-                  list: highRatedList?.map((e) => e.imageUrl[0]).toList() ?? []),
-              ImageSlider(
-                  text: Texts.newlyOpenedText.toString(),
-                  subtext: Texts.newlyOpenedSubText.toString(),
-                  list: newlyOpenedList?.map((e) => e.imageUrl[0]).toList() ?? []),
-              ImageSlider(
-                  text: Texts.popularText.toString(),
-                  subtext: Texts.popularSubText.toString(),
-                  list: closestList?.map((e) => e.imageUrl[0]).toList() ?? []),
-            ],
-          )),
-    );
+    return Container(
+        color: Colors.white,
+        child: Visibility(
+          visible: allLoaded,
+          replacement: const Center(child: CircularProgressIndicator()),
+          child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  // map 해보기
+                  // 3장만 받지 말고 있는 사진 다 가져오기
+                  ImageSlider(
+                      text: Texts.closestText.toString(),
+                      subtext: Texts.closestSubText.toString(),
+                      list: closestList?.map((e) => e.imageUrl[0]).toList() ??
+                          []),
+                  ImageSlider(
+                      text: Texts.highRatedText.toString(),
+                      subtext: Texts.highRatedSubText.toString(),
+                      list: highRatedList?.map((e) => e.imageUrl[0]).toList() ??
+                          []),
+                  ImageSlider(
+                      text: Texts.newlyOpenedText.toString(),
+                      subtext: Texts.newlyOpenedSubText.toString(),
+                      list:
+                          newlyOpenedList?.map((e) => e.imageUrl[0]).toList() ??
+                              []),
+                  ImageSlider(
+                      text: Texts.popularText.toString(),
+                      subtext: Texts.popularSubText.toString(),
+                      list: closestList?.map((e) => e.imageUrl[0]).toList() ??
+                          []),
+                ],
+              )),
+        ));
   }
 }

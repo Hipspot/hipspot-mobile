@@ -4,7 +4,7 @@ import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/model/favorite_card_model.dart';
 
 class FavoriteList extends StatelessWidget {
-  final List<FavoriteCardModel> favoriteList;
+  final List<FavoriteCardModel>? favoriteList;
   const FavoriteList({super.key, required this.favoriteList});
 
   @override
@@ -19,7 +19,7 @@ class FavoriteList extends StatelessWidget {
         Text("즐겨찾기", style: defaultTextStyle.copyWith(fontSize: 20)),
         const SizedBox(height: 20),
         Expanded(
-          child: favoriteList.isEmpty
+          child: favoriteList?.isEmpty ?? true
               ? const Center(child: Text("즐겨찾기한 카페가 없습니다."))
               : GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -27,12 +27,12 @@ class FavoriteList extends StatelessWidget {
                       crossAxisSpacing: 11,
                       mainAxisSpacing: 32,
                       childAspectRatio: 166 / (166 + 8 + 24)),
-                  itemCount: favoriteList.length,
+                  itemCount: favoriteList!.length,
                   itemBuilder: (context, index) {
                     return FavofiteCard(
-                        title: favoriteList[index].title,
-                        imageUrl: favoriteList[index].imageUrl,
-                        isBookmarked: favoriteList[index].isBookmarked);
+                        title: favoriteList![index].title,
+                        imageUrl: favoriteList![index].imageUrl,
+                        isBookmarked: favoriteList![index].isBookmarked);
                   }),
         )
       ],

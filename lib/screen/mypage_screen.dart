@@ -1,32 +1,15 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hipspot/component/Favorite/favorite_list.dart';
 import 'package:hipspot/const/font_family.dart';
+import 'package:hipspot/main.dart';
 import 'package:hipspot/model/favorite_card_model.dart';
-
+import 'package:hipspot/utils/api/favorite.dart';
 import '../../component/delete_account.dart';
 import '../../const/color/gray_scale_color.dart';
-
-List<FavoriteCardModel> favoriteList = [
-  FavoriteCardModel(
-    title: '카페10',
-    imageUrl:
-        'https://hipspot.s3.ap-northeast-2.amazonaws.com/10/thumbNail.jpg',
-    isBookmarked: true,
-  ),
-  FavoriteCardModel(
-    title: '카페11',
-    imageUrl:
-        'https://hipspot.s3.ap-northeast-2.amazonaws.com/11/thumbNail.jpg',
-    isBookmarked: true,
-  ),
-  FavoriteCardModel(
-    title: '카페12',
-    imageUrl:
-        'https://hipspot.s3.ap-northeast-2.amazonaws.com/12/thumbNail.jpg',
-    isBookmarked: true,
-  ),
-];
 
 class MypageScreen extends StatefulWidget {
   const MypageScreen({Key? key}) : super(key: key);
@@ -41,6 +24,32 @@ class _MypageScreenState extends State<MypageScreen> {
       fontSize: 16,
       fontFamily: FontFamily.pretendard.name);
   bool openMenu = false;
+  List<FavoriteCardModel>? favoriteList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      final response = await FavoriteApi().getFavoriteList();
+      if (response.statusCode == 200) {
+        setState(() {
+          var list = response.data;
+          favoriteList =
+              list.map((item) => FavoriteCardModel.fromJson(item)).toList();
+        });
+      }
+      if (response.statusCode == 404) {
+        const storage = FlutterSecureStorage();
+        storage.delete(key: 'accessToken');
+      }
+    } catch (e) {
+      print('Failed to load data, $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
