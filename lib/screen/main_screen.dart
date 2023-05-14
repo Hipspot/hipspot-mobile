@@ -19,7 +19,6 @@ class _MainScreenState extends State<MainScreen> {
   late Widget currentPage;
   final List<Widget> _pages = [
     KeepAliveWidget(child: WebviewScreen()),
-    RecommendScreen()
   ];
 
   void _onItemTapped(int index) async {
