@@ -10,6 +10,7 @@ import 'package:hipspot/model/favorite_card_model.dart';
 import 'package:hipspot/screen/onboarding_screen.dart';
 import 'package:hipspot/splash_screen.dart';
 import 'package:hipspot/utils/api/favorite.dart';
+import 'package:hipspot/utils/api/user.dart';
 import 'package:hipspot/utils/authenticate.dart';
 import '../../component/delete_account.dart';
 import '../../const/color/gray_scale_color.dart';
@@ -27,10 +28,20 @@ class _MypageScreenState extends State<MypageScreen> {
       fontSize: 16,
       fontFamily: FontFamily.pretendard.name);
   bool openMenu = false;
+  String name = '';
 
   @override
   void initState() {
     super.initState();
+    fetchData();
+  }
+
+  Future<void> fetchData() async {
+    var response = await UserApi().get();
+    print(response.data);
+    setState(() {
+      name = response.data['displayName'];
+    });
   }
 
   @override
@@ -38,10 +49,10 @@ class _MypageScreenState extends State<MypageScreen> {
     return SafeArea(
         top: false,
         child: Scaffold(
-          appBar: renderAppBar(name: "황인서"),
+          appBar: renderAppBar(name: name),
           body: const Padding(
-              padding: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-              child: FavoriteListWidget()),
+              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+              child: const FavoriteListWidget()),
         ));
   }
 

@@ -43,7 +43,6 @@ class _FavoriteListWidgetState extends State<FavoriteListWidget> {
 
   Future<void> toggleFavorite(String cafeId, bool isBookmarked) async {
     try {
-      print('setState 실행');
       await FavoriteApi().toggle(cafeId, isBookmarked);
       setState(() {
         favoriteList = favoriteList?.map((favoriteCardState) {
@@ -58,7 +57,6 @@ class _FavoriteListWidgetState extends State<FavoriteListWidget> {
           }
           return favoriteCardState;
         }).toList();
-        print(favoriteList);
       });
     } catch (e) {
       print(e);
