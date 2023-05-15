@@ -16,9 +16,16 @@ void main() async {
     statusBarColor: Colors.transparent,
   ));
 
-  dio.interceptors.add(DioUnAuthErrorInterceptor());
+  // Get the application documents directory.
+  var dir = await getApplicationDocumentsDirectory();
+  // Create a FileStorage with the directory.
+  var storage = FileStorage(dir.path);
+  // Create a PersistCookieJar with the directory.
+  var cj = PersistCookieJar(storage: storage);
+  dio.interceptors.add(CookieManager(cj));
   dio.interceptors.add(DioAddQueryInterceptor());
-
+  dio.interceptors.add(DioUnAuthErrorInterceptor());
+  cj.deleteAll();
   await dotenv.load();
   runApp(const MyApp());
 }

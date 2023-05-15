@@ -10,13 +10,12 @@ class FavoriteApi {
 
   FavoriteApi() {
     _client = dio;
-    path = '${dotenv.env['API_ROOT_PATH']!}/favorite?platform=mobile';
+    path = '${dotenv.env['API_ROOT_PATH']!}/favorite';
   }
 
   Future<Response<dynamic>> getFavoriteList() async {
     print("getFavoriteList, $path");
-    var response = await _client.get(path,
-        options: Options(headers: {"Authorization": "Bearer $accessToken"}));
+    var response = await _client.get(path);
 
     return response;
   }

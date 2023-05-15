@@ -7,7 +7,10 @@ import 'package:hipspot/component/Favorite/favorite_list.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/main.dart';
 import 'package:hipspot/model/favorite_card_model.dart';
+import 'package:hipspot/screen/onboarding_screen.dart';
+import 'package:hipspot/splash_screen.dart';
 import 'package:hipspot/utils/api/favorite.dart';
+import 'package:hipspot/utils/authenticate.dart';
 import '../../component/delete_account.dart';
 import '../../const/color/gray_scale_color.dart';
 
@@ -37,14 +40,14 @@ class _MypageScreenState extends State<MypageScreen> {
       final response = await FavoriteApi().getFavoriteList();
       if (response.statusCode == 200) {
         setState(() {
-          var list = response.data;
-          favoriteList =
-              list.map((item) => FavoriteCardModel.fromJson(item)).toList();
+          var fetchedData = response.data;
+          List<dynamic> fetchedFavoriteList = fetchedData['favoriteList'];
+          favoriteList = fetchedFavoriteList.isEmpty
+              ? []
+              : fetchedFavoriteList
+                  .map((item) => FavoriteCardModel.fromJson(item))
+                  .toList();
         });
-      }
-      if (response.statusCode == 404) {
-        const storage = FlutterSecureStorage();
-        storage.delete(key: 'accessToken');
       }
     } catch (e) {
       print('Failed to load data, $e');
@@ -112,9 +115,18 @@ class _MypageScreenState extends State<MypageScreen> {
                   const SizedBox(height: 56),
                   Row(
                     children: [
-                      Text("로그아웃",
-                          style: defaultTextStyle.copyWith(
-                              fontSize: 16, color: const Color(0xFFCCCCCC))),
+                      InkWell(
+                          child: Text("로그아웃",
+                              style: defaultTextStyle.copyWith(
+                                  fontSize: 16,
+                                  color: const Color(0xFFCCCCCC))),
+                          onTap: () async {
+                            if (await Authenticate.logout()) ;
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()));
+                          }),
                       const SizedBox(width: 20),
                       Container(
                           width: 1, height: 16, color: const Color(0xFF404040)),
@@ -132,6 +144,15 @@ class _MypageScreenState extends State<MypageScreen> {
                           );
                         },
                       ),
+                      const SizedBox(width: 20),
+                      InkWell(
+                          child: Text("test Login",
+                              style: defaultTextStyle.copyWith(
+                                  fontSize: 16,
+                                  color: const Color(0xFFCCCCCC))),
+                          onTap: () async {
+                            Authenticate.login();
+                          }),
                     ],
                   )
                 ],

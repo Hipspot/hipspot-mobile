@@ -23,7 +23,7 @@ class _WebviewScreenState extends State<WebviewScreen> {
   int loadingProgress = 0;
   final _dio = dio;
   late final WebViewController _controller = createWebViewController()
-    // ..loadRequest(Uri.parse('https://hipspot.netlify.app/'))
+    ..loadRequest(Uri.parse('https://hipspot.netlify.app/'))
     ..setNavigationDelegate(customedNavigationDelegate);
 
   @override

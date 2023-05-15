@@ -10,9 +10,9 @@ class FavoriteCardModel {
 
   factory FavoriteCardModel.fromJson(Map<String, dynamic> json) {
     return FavoriteCardModel(
-      title: json['title'],
-      imageUrl: json['imageUrl'],
-      isBookmarked: json['isBookmarked'],
+      title: json['cafeName'],
+      imageUrl: json['thumbNail'],
+      isBookmarked: true,
     );
   }
 }
