@@ -16,21 +16,13 @@ packages:
       sha256: "6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66"
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
     version: "2.1.1"
-=======
-    version: "2.1.0"
->>>>>>> develop
   carousel_slider:
     dependency: "direct main"
     description:
       name: carousel_slider
-<<<<<<< HEAD
       sha256: "9c695cc963bf1d04a47bd6021f68befce8970bcd61d24938e1fb0918cf5d9c42"
       url: "https://pub.dev"
-=======
-      url: "https://pub.dartlang.org"
->>>>>>> develop
     source: hosted
     version: "4.2.1"
   characters:
@@ -172,10 +164,10 @@ packages:
     dependency: transitive
     description:
       name: geolocator_android
-      sha256: "2ba24690aee0a3e1b6b7bd47c2711a50c874e95e4c758346589d35194adf6d6a"
+      sha256: "6cd3c622df085a79fd61f5c14fa024c3ba593aa6b1df2ee809ac59f45e6a9861"
       url: "https://pub.dev"
     source: hosted
-    version: "4.1.7"
+    version: "4.1.8"
   geolocator_apple:
     dependency: transitive
     description:
@@ -212,24 +204,16 @@ packages:
     dependency: "direct main"
     description:
       name: http
-<<<<<<< HEAD
-      sha256: "6aa2946395183537c8b880962d935877325d6a09a2867c3970c05c0fed6ac482"
+      sha256: "5895291c13fa8a3bd82e76d5627f69e0d85ca6a30dcac95c4ea19a5d555879c2"
       url: "https://pub.dev"
-=======
-      url: "https://pub.dartlang.org"
->>>>>>> develop
     source: hosted
-    version: "0.13.5"
+    version: "0.13.6"
   http_parser:
     dependency: transitive
     description:
       name: http_parser
-<<<<<<< HEAD
       sha256: "2aa08ce0341cc9b354a498388e30986515406668dbcc4f7c950c3e715496693b"
       url: "https://pub.dev"
-=======
-      url: "https://pub.dartlang.org"
->>>>>>> develop
     source: hosted
     version: "4.0.2"
   js:
@@ -364,23 +348,15 @@ packages:
       sha256: ad540f65f92caa91bf21dfc8ffb8c589d6e4dc0c2267818b4cc2792857706206
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
     version: "0.4.16"
-=======
-    version: "0.4.12"
->>>>>>> develop
   typed_data:
     dependency: transitive
     description:
       name: typed_data
-<<<<<<< HEAD
-      sha256: "26f87ade979c47a150c9eaab93ccd2bebe70a27dc0b4b29517f2904f04eb11a5"
+      sha256: facc8d6582f16042dd49f2463ff1bd6e2c9ef9f3d5da3d9b087e244a7b564b3c
       url: "https://pub.dev"
-=======
-      url: "https://pub.dartlang.org"
->>>>>>> develop
     source: hosted
-    version: "1.3.1"
+    version: "1.3.2"
   vector_math:
     dependency: transitive
     description:
@@ -417,10 +393,10 @@ packages:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
-      sha256: "61f33512810bf1ee9ac89761a4b02663ff64e8227b7dc80654642acd660fd49d"
+      sha256: "4646bb68297803bdbb96d46853e8fcb560d6cb5e04153fa64581535767875dfe"
       url: "https://pub.dev"
     source: hosted
-    version: "3.4.2"
+    version: "3.4.3"
   xml:
     dependency: transitive
     description:
@@ -430,5 +406,5 @@ packages:
     source: hosted
     version: "5.4.1"
 sdks:
-  dart: ">=2.18.0 <3.0.0"
+  dart: ">=2.19.0 <3.0.0"
   flutter: ">=3.3.0"
