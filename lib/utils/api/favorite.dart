@@ -13,14 +13,36 @@ class FavoriteApi {
     path = '${dotenv.env['API_ROOT_PATH']!}/favorite';
   }
 
-  Future<Response<dynamic>> getFavoriteList() async {
-    print("getFavoriteList, $path");
+  Future<Response<dynamic>> getList() async {
     var response = await _client.get(path);
 
     return response;
   }
 
-  Future<bool> addFavorite(String cafeId) async {
+  Future<bool> toggle(String cafeId, bool isBookmarked) async {
+    print('toggle, $cafeId, $isBookmarked ');
+    return isBookmarked ? remove(cafeId) : add(cafeId);
+  }
+
+  Future<bool> add(String cafeId) async {
+    try {
+      var response =
+          await _client.patch(path, data: {'type': "add", 'cafeId': cafeId});
+    } catch (e) {
+      print(e);
+      return false;
+    }
+    return true;
+  }
+
+  Future<bool> remove(String cafeId) async {
+    try {
+      var response =
+          await _client.patch(path, data: {'type': 'remove', 'cafeId': cafeId});
+    } catch (e) {
+      print(e);
+      return false;
+    }
     return true;
   }
 }

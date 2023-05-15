@@ -25,10 +25,9 @@ class _MainScreenState extends State<MainScreen> {
     print(index);
     if (index == 2) {
       String? accessToken = await storage.read(key: 'accessToken');
-      // String? refreshToken = await storage.read(key: 'refreshToken');
+      String? refreshToken = await storage.read(key: 'refreshToken');
 
-      print('mainScreen click, $accessToken');
-      if (accessToken == null) {
+      if (accessToken == null && refreshToken == null) {
         return showDialog(
             context: context,
             builder: (BuildContext context) {

@@ -27,31 +27,10 @@ class _MypageScreenState extends State<MypageScreen> {
       fontSize: 16,
       fontFamily: FontFamily.pretendard.name);
   bool openMenu = false;
-  List<FavoriteCardModel>? favoriteList = [];
 
   @override
   void initState() {
     super.initState();
-    fetchData();
-  }
-
-  Future<void> fetchData() async {
-    try {
-      final response = await FavoriteApi().getFavoriteList();
-      if (response.statusCode == 200) {
-        setState(() {
-          var fetchedData = response.data;
-          List<dynamic> fetchedFavoriteList = fetchedData['favoriteList'];
-          favoriteList = fetchedFavoriteList.isEmpty
-              ? []
-              : fetchedFavoriteList
-                  .map((item) => FavoriteCardModel.fromJson(item))
-                  .toList();
-        });
-      }
-    } catch (e) {
-      print('Failed to load data, $e');
-    }
   }
 
   @override
@@ -60,9 +39,9 @@ class _MypageScreenState extends State<MypageScreen> {
         top: false,
         child: Scaffold(
           appBar: renderAppBar(name: "황인서"),
-          body: Padding(
+          body: const Padding(
               padding: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-              child: FavoriteList(favoriteList: favoriteList)),
+              child: FavoriteListWidget()),
         ));
   }
 
@@ -144,15 +123,6 @@ class _MypageScreenState extends State<MypageScreen> {
                           );
                         },
                       ),
-                      const SizedBox(width: 20),
-                      InkWell(
-                          child: Text("test Login",
-                              style: defaultTextStyle.copyWith(
-                                  fontSize: 16,
-                                  color: const Color(0xFFCCCCCC))),
-                          onTap: () async {
-                            Authenticate.login();
-                          }),
                     ],
                   )
                 ],

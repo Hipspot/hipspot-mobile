@@ -2,16 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/const/path/icon.dart';
+import 'package:hipspot/utils/api/favorite.dart';
 
-class FavofiteCard extends StatelessWidget {
+class FavoriteCard extends StatelessWidget {
   final bool isBookmarked;
-  final String title;
-  final String imageUrl;
-  const FavofiteCard(
+  final String cafeId;
+  final String cafeName;
+  final String thumbNail;
+  final Future<void> Function(String, bool) onTapCard;
+  const FavoriteCard(
       {super.key,
+      required this.cafeId,
       required this.isBookmarked,
-      required this.title,
-      required this.imageUrl});
+      required this.cafeName,
+      required this.thumbNail,
+      required this.onTapCard});
 
   @override
   Widget build(BuildContext context) {
@@ -23,24 +28,27 @@ class FavofiteCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         AspectRatio(
-          aspectRatio: 1.0,
-          child: Container(
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.all(Radius.circular(4.0)),
-                image: DecorationImage(
-                    fit: BoxFit.cover, image: NetworkImage(imageUrl)),
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                    padding: const EdgeInsets.only(top: 10, right: 10),
-                    child: isBookmarked
-                        ? SvgPicture.asset(IconAsset.starFilled.path)
-                        : SvgPicture.asset(IconAsset.starOutlined.path)),
-              )),
-        ),
+            aspectRatio: 1.0,
+            child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(4.0)),
+                  image: DecorationImage(
+                      fit: BoxFit.cover, image: NetworkImage(thumbNail)),
+                ),
+                child: Align(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () async {
+                        await onTapCard(cafeId, isBookmarked);
+                      },
+                      child: Padding(
+                          padding: const EdgeInsets.only(top: 10, right: 10),
+                          child: isBookmarked
+                              ? SvgPicture.asset(IconAsset.starFilled.path)
+                              : SvgPicture.asset(IconAsset.starOutlined.path)),
+                    )))),
         const SizedBox(height: 8),
-        Text(title, style: defaultTextStyle),
+        Text(cafeName, style: defaultTextStyle),
       ],
     );
   }

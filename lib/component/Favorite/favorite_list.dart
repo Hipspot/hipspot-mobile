@@ -2,10 +2,69 @@ import 'package:flutter/material.dart';
 import 'package:hipspot/component/Favorite/favorite_card.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/model/favorite_card_model.dart';
+import 'package:hipspot/utils/api/favorite.dart';
+import 'package:hipspot/utils/authenticate.dart';
 
-class FavoriteList extends StatelessWidget {
-  final List<FavoriteCardModel>? favoriteList;
-  const FavoriteList({super.key, required this.favoriteList});
+class FavoriteListWidget extends StatefulWidget {
+  const FavoriteListWidget({Key? key}) : super(key: key);
+
+  @override
+  State<FavoriteListWidget> createState() => _FavoriteListWidgetState();
+}
+
+class _FavoriteListWidgetState extends State<FavoriteListWidget> {
+  List<FavoriteCardModel>? favoriteList;
+
+  @override
+  void initState() {
+    super.initState();
+    fetchData(); // Assuming you have a method to load the favorite list
+  }
+
+  Future<void> fetchData() async {
+    try {
+      final response = await FavoriteApi().getList();
+      if (response.statusCode == 200) {
+        setState(() {
+          var fetchedData = response.data;
+          List<dynamic> fetchedFavoriteList = fetchedData['favoriteList'];
+          favoriteList = fetchedFavoriteList.isEmpty
+              ? []
+              : fetchedFavoriteList
+                  .map((item) => FavoriteCardModel.fromJson(item))
+                  .toList();
+        });
+      }
+    } catch (e) {
+      print('Failed to load data, $e');
+      showLoginModal(context);
+    }
+  }
+
+  Future<void> toggleFavorite(String cafeId, bool isBookmarked) async {
+    try {
+      print('setState 실행');
+      await FavoriteApi().toggle(cafeId, isBookmarked);
+      setState(() {
+        favoriteList = favoriteList?.map((favoriteCardState) {
+          if (favoriteCardState.cafeId == cafeId) {
+            return FavoriteCardModel(
+              cafeName: favoriteCardState.cafeName,
+              cafeId: favoriteCardState.cafeId,
+              thumbNail: favoriteCardState.thumbNail,
+              isBookmarked: !favoriteCardState
+                  .isBookmarked, // Toggle the isBookmarked value
+            );
+          }
+          return favoriteCardState;
+        }).toList();
+        print(favoriteList);
+      });
+    } catch (e) {
+      print(e);
+      showLoginModal(context);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +88,12 @@ class FavoriteList extends StatelessWidget {
                       childAspectRatio: 166 / (166 + 8 + 24)),
                   itemCount: favoriteList!.length,
                   itemBuilder: (context, index) {
-                    return FavofiteCard(
-                        title: favoriteList![index].title,
-                        imageUrl: favoriteList![index].imageUrl,
-                        isBookmarked: favoriteList![index].isBookmarked);
+                    return FavoriteCard(
+                        cafeName: favoriteList![index].cafeName,
+                        cafeId: favoriteList![index].cafeId,
+                        thumbNail: favoriteList![index].thumbNail,
+                        isBookmarked: favoriteList![index].isBookmarked,
+                        onTapCard: toggleFavorite);
                   }),
         )
       ],

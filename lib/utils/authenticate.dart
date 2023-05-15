@@ -50,7 +50,7 @@ class Authenticate {
   }
 }
 
-void showLoginModal(BuildContext context, DioError error) {
+void showLoginModal(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) => const Login(),
