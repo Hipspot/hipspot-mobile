@@ -18,8 +18,8 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-    _animationController =
-        AnimationController(vsync: this, duration: const Duration(milliseconds: 1000));
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1000));
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
     _animationController.forward();
     startTimer();
@@ -31,8 +31,10 @@ class _SplashScreenState extends State<SplashScreen>
         Navigator.of(context).pushReplacement(
           PageRouteBuilder(
             transitionDuration: const Duration(milliseconds: 1000),
-            pageBuilder: (context, animation, secondaryAnimation) => const HomeScreen(),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const HomeScreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
               return FadeTransition(
                 opacity: animation,
                 child: child,
@@ -43,7 +45,6 @@ class _SplashScreenState extends State<SplashScreen>
       });
     });
   }
-
 
   @override
   void dispose() {

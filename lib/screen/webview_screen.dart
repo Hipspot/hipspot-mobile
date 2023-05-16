@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:hipspot/component/Webview/utils/config_navigation_delegate.dart';
 import 'package:hipspot/component/Webview/utils/create_WebView_Controller.dart';
+import 'package:hipspot/main.dart';
 // Import for Android features.
 import 'package:webview_flutter_android/webview_flutter_android.dart';
 // Import for iOS features.
@@ -11,18 +12,16 @@ import 'package:hipspot/const/channel_name.dart';
 import 'package:hipspot/model/trensfer_message_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../login.dart';
-
-class Webview extends StatefulWidget {
-  const Webview({Key? key}) : super(key: key);
+class WebviewScreen extends StatefulWidget {
+  const WebviewScreen({Key? key}) : super(key: key);
 
   @override
-  State<Webview> createState() => _WebviewState();
+  State<WebviewScreen> createState() => _WebviewScreenState();
 }
 
-class _WebviewState extends State<Webview> {
+class _WebviewScreenState extends State<WebviewScreen> {
   int loadingProgress = 0;
-
+  final _dio = dio;
   late final WebViewController _controller = createWebViewController()
     ..loadRequest(Uri.parse('http://localhost:3000/'))
     ..setNavigationDelegate(customedNavigationDelegate);
@@ -43,15 +42,12 @@ class TestButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _dio = dio;
     return TextButton(
         child: const Text('test'),
-        onPressed: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return const Login();
-            },
-          );
+        onPressed: () async {
+          print(123123);
+          await _dio.get('http://localhost:5001/favorite');
           sendToWeb(TransferMessage(
               type: AppToWebFunctionList.initFilterling.name, data: "test"));
         });

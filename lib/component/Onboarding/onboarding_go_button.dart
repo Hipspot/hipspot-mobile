@@ -6,17 +6,19 @@ import 'package:hipspot/const/duration.dart';
 import 'package:hipspot/const/filter_list.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/const/path/icon.dart';
-import 'package:hipspot/screen/second_screen.dart';
+import 'package:hipspot/screen/main_screen.dart';
 
 class GoButton extends StatefulWidget {
-  const GoButton(
-      {super.key,
-      required this.selectedFilter,
-      required this.beforeSelectedFilter});
   final String go = "GO!";
   final double buttonHeightRatio = 119 / 812;
   final FilterListEnum selectedFilter;
   final FilterListEnum beforeSelectedFilter;
+  final VoidCallback onTap;
+  const GoButton(
+      {super.key,
+      required this.selectedFilter,
+      required this.beforeSelectedFilter,
+      required this.onTap});
   @override
   State<GoButton> createState() => _GoButtonState();
 }
@@ -62,10 +64,7 @@ class _GoButtonState extends State<GoButton>
     return InkWell(
         highlightColor: Colors.transparent,
         splashColor: Colors.transparent,
-        onTap: () => {
-              Navigator.of(context)
-                  .push(SlideRightRoute(page: const SecondScreen()))
-            },
+        onTap: widget.onTap,
         child: AnimatedBuilder(
             animation: _color,
             builder: (context, child) => Container(
