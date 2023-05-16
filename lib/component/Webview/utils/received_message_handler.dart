@@ -33,11 +33,7 @@ class ReceivedMessageHandler {
           print("getAuth 실행");
           return;
         }
-      case WebToAppFunctionsList.openLoginModal:
-        {
-          print('openLoginModal 실행');
-          return;
-        }
+
       default:
         throw Error();
     }

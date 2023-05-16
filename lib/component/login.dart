@@ -112,4 +112,15 @@ class Login extends StatelessWidget {
       ),
     );
   }
+
+  void openLoginModal(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return const Dialog(
+          child: Login(),
+        );
+      },
+    );
+  }
 }

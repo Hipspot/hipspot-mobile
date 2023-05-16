@@ -103,9 +103,22 @@ class _MypageScreenState extends State<MypageScreen> {
                   const SizedBox(height: 56),
                   Row(
                     children: [
-                      Text("로그아웃",
-                          style: defaultTextStyle.copyWith(
-                              fontSize: 16, color: const Color(0xFFCCCCCC))),
+                      InkWell(
+                        child: Text("로그아웃",
+                            style: defaultTextStyle.copyWith(
+                                fontSize: 16, color: const Color(0xFFCCCCCC))),
+                        onTap: () {
+                          const storage = FlutterSecureStorage();
+                          storage.deleteAll();
+                          Navigator.pop(context);
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return const SimpleDialog(
+                                    title: Text("로그아웃 되었습니다."));
+                              });
+                        },
+                      ),
                       const SizedBox(width: 20),
                       Container(
                           width: 1, height: 16, color: const Color(0xFF404040)),
@@ -140,21 +153,6 @@ class _MypageScreenState extends State<MypageScreen> {
                           );
                         },
                       ),
-                      /* 로그아웃 
-                      const SizedBox(width: 20),
-                      Container(
-                          width: 1, height: 16, color: const Color(0xFF404040)),
-                      const SizedBox(width: 20),
-                      InkWell(
-                        child: Text("로그아웃",
-                            style: defaultTextStyle.copyWith(
-                                fontSize: 16, color: const Color(0xFFCCCCCC))),
-                        onTap: () {
-                          const storage = FlutterSecureStorage();
-                          storage.deleteAll();
-                        },
-                      ), 
-                      */
                     ],
                   )
                 ],

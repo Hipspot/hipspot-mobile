@@ -11,6 +11,8 @@ import 'package:hipspot/const/channel_name.dart';
 import 'package:hipspot/model/trensfer_message_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../login.dart';
+
 class Webview extends StatefulWidget {
   const Webview({Key? key}) : super(key: key);
 
@@ -22,7 +24,7 @@ class _WebviewState extends State<Webview> {
   int loadingProgress = 0;
 
   late final WebViewController _controller = createWebViewController()
-    ..loadRequest(Uri.parse('https://hipspot.netlify.app/'))
+    ..loadRequest(Uri.parse('http://localhost:3000/'))
     ..setNavigationDelegate(customedNavigationDelegate);
 
   @override
@@ -44,6 +46,12 @@ class TestButton extends StatelessWidget {
     return TextButton(
         child: const Text('test'),
         onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return const Login();
+            },
+          );
           sendToWeb(TransferMessage(
               type: AppToWebFunctionList.initFilterling.name, data: "test"));
         });

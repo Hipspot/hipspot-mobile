@@ -10,7 +10,6 @@ enum AppToWebFunctionList {
 enum WebToAppFunctionsList {
   getMyLocation('getMyLocation'),
   getAuth('getAuth'),
-  openLoginModal('openLoginModal'),
   error("ERROR"); //웹에서 보낸 메세지의 type 프로퍼티를 fromName으로 체크하는데, null인 경우
 
   const WebToAppFunctionsList(this.name);
