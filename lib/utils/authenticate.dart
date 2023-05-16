@@ -48,6 +48,15 @@ class Authenticate {
     }
     return true;
   }
+
+  static Future<bool> isAuth() async {
+    const storage = FlutterSecureStorage();
+    final accessToken = await storage.read(key: 'accessToken');
+    if (accessToken == null) {
+      return false;
+    }
+    return true;
+  }
 }
 
 void showLoginModal(BuildContext context) {

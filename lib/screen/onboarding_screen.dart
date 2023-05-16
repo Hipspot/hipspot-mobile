@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hipspot/component/Onboarding/onboarding_filter_image.dart';
 import 'package:hipspot/component/Onboarding/onboarding_filter_select.dart';
 import 'package:hipspot/component/Onboarding/onboarding_go_button.dart';
 import 'package:hipspot/component/Onboarding/onboarding_skip.dart';
 import 'package:hipspot/component/Onboarding/onboarding_title.dart';
+import 'package:hipspot/component/login.dart';
 import 'package:hipspot/component/slide_right_route.dart';
 import 'package:hipspot/const/filter_list.dart';
 import 'package:hipspot/screen/main_screen.dart';
+import 'package:hipspot/utils/authenticate.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -16,6 +19,27 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  @override
+  void initState() {
+    initAuth();
+    super.initState();
+  }
+
+  Future<void> initAuth() async {
+    const storage = FlutterSecureStorage();
+    String? accessToken = await storage.read(key: 'accessToken');
+
+    if (!context.mounted) return;
+
+    if (accessToken == null) {
+      showDialog(context: context, builder: (context) => const Login());
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) => const SimpleDialog(title: Text('로그인되었습니다')));
+    }
+  }
+
   // state
   FilterListEnum beforeSelectedFilter = FilterListEnum.hipSpot;
   FilterListEnum selectedFilter = FilterListEnum.hipSpot;
