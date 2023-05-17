@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hipspot/utils/api/user.dart';
+import 'package:hipspot/api/user.dart';
 
 class DeleteAccount extends StatelessWidget {
   const DeleteAccount({Key? key}) : super(key: key);

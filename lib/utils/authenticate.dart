@@ -1,9 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:hipspot/component/login.dart';
 import 'package:hipspot/main.dart';
+import 'package:hipspot/utils/token_storage.dart';
 
 // 추후 const로 옮기기
 const APP_REDIRECT_URI = "hipspot-mobile";
@@ -11,9 +10,8 @@ const GOOGLE_AUTH_URI_BASE = 'https://api.hipspot.xyz/auth/login/google';
 const DEV_AUTH_URI = 'https://api.hipspot.xyz/auth/login/dev';
 
 class Authenticate {
+  final _dio = dio;
   static Future<bool> login() async {
-    final _dio = dio;
-
     try {
       final result = await FlutterWebAuth.authenticate(
         url:
@@ -28,14 +26,14 @@ class Authenticate {
       final String? refreshToken =
           Uri.parse(result).queryParameters['refresh_token'];
 
-      if (accessToken == null || refreshToken == null)
+      if (accessToken == null || refreshToken == null) {
         throw Exception('토큰이 없습니다.');
+      }
 
-      await Authenticate.writeTokens(
+      await TokenStorage.writeTokens(
         accessToken: accessToken!,
         refreshToken: refreshToken!,
       );
-      dio.options.headers['Authorization'] = 'Bearer $accessToken';
     } catch (e) {
       print(e);
       return false;
@@ -44,30 +42,7 @@ class Authenticate {
   }
 
   static Future<bool> logout() async {
-    const storage = FlutterSecureStorage();
-    final _dio = dio;
-    try {
-      storage.delete(key: 'refreshToken');
-      storage.delete(key: 'accessToken');
-      print('로그아웃 완료');
-    } catch (e) {
-      print(e);
-      return false;
-    }
-    return true;
-  }
-
-  static Future<bool> writeTokens(
-      {required String accessToken, required String refreshToken}) async {
-    final storage = FlutterSecureStorage();
-    try {
-      await storage.write(key: 'refreshToken', value: refreshToken);
-      await storage.write(key: 'accessToken', value: accessToken);
-    } catch (e) {
-      print(e);
-      return false;
-    }
-    return true;
+    return await TokenStorage.deleteTokens();
   }
 }
 

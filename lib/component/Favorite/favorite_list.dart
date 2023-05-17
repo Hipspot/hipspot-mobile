@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hipspot/component/Favorite/favorite_card.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/model/favorite_card_model.dart';
-import 'package:hipspot/utils/api/favorite.dart';
+import 'package:hipspot/api/favorite.dart';
 import 'package:hipspot/utils/authenticate.dart';
 
 class FavoriteListWidget extends StatefulWidget {

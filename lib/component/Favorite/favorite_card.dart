@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/const/path/icon.dart';
-import 'package:hipspot/utils/api/favorite.dart';
+import 'package:hipspot/api/favorite.dart';
 
 class FavoriteCard extends StatelessWidget {
   final bool isBookmarked;
