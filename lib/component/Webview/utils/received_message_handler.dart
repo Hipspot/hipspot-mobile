@@ -39,13 +39,10 @@ class ReceivedMessageHandler {
               WidgetsBinding.instance.window.devicePixelRatio;
           final notchHeightPixel =
               WidgetsBinding.instance.window.padding.top / devicePixelRatio;
-          print(notchHeightPixel);
           TransferMessage message = TransferMessage(
               type: AppToWebFunctionList.setNotchHeight.name,
               data: notchHeightPixel);
           sendToWeb(message, controller);
-
-          print('getNotchHeight 실행');
           return;
         }
       default:
