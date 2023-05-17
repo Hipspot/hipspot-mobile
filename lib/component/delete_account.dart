@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hipspot/api/user.dart';
 
 class DeleteAccount extends StatelessWidget {
   const DeleteAccount({Key? key}) : super(key: key);
@@ -66,12 +67,15 @@ class DeleteAccount extends StatelessWidget {
               Material(
                 color: Colors.transparent,
                 child: Ink.image(
-                  image: const AssetImage('assets/images/mypage/delete_yes.png'),
+                  image:
+                      const AssetImage('assets/images/mypage/delete_yes.png'),
                   width: 247,
                   height: 56,
                   fit: BoxFit.cover,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      await UserApi().unRegister();
+                    },
                   ),
                 ),
               ),

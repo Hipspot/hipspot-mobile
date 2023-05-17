@@ -1,26 +1,22 @@
 import 'dart:async';
 import 'package:hipspot/component/Webview/utils/config_navigation_delegate.dart';
 import 'package:hipspot/component/Webview/utils/create_WebView_Controller.dart';
-// Import for Android features.
-import 'package:webview_flutter_android/webview_flutter_android.dart';
-// Import for iOS features.
-import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
+import 'package:hipspot/main.dart';
 import 'package:flutter/material.dart';
 import 'package:hipspot/const/channel_function_list.dart';
 import 'package:hipspot/const/channel_name.dart';
 import 'package:hipspot/model/trensfer_message_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class Webview extends StatefulWidget {
-  const Webview({Key? key}) : super(key: key);
+class WebviewScreen extends StatefulWidget {
+  const WebviewScreen({Key? key}) : super(key: key);
 
   @override
-  State<Webview> createState() => _WebviewState();
+  State<WebviewScreen> createState() => _WebviewScreenState();
 }
 
-class _WebviewState extends State<Webview> {
+class _WebviewScreenState extends State<WebviewScreen> {
   int loadingProgress = 0;
-
   late final WebViewController _controller = createWebViewController()
     ..loadRequest(Uri.parse('https://hipspot.netlify.app/'))
     ..setNavigationDelegate(customedNavigationDelegate);
@@ -43,7 +39,7 @@ class TestButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
         child: const Text('test'),
-        onPressed: () {
+        onPressed: () async {
           sendToWeb(TransferMessage(
               type: AppToWebFunctionList.initFilterling.name, data: "test"));
         });

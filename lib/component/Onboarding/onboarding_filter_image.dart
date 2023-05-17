@@ -111,11 +111,8 @@ class _AnimatedCircle extends StatefulWidget {
   final double height;
   final Animation<Color?> color;
 
-  _AnimatedCircle(
-      {super.key,
-      required this.width,
-      required this.height,
-      required this.color});
+  const _AnimatedCircle(
+      {required this.width, required this.height, required this.color});
 
   @override
   State<_AnimatedCircle> createState() => _AnimatedCircleState();

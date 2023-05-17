@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class ImageSlider extends StatelessWidget {
+class Recommend extends StatelessWidget {
   final String text;
   final String subtext;
   final List<String> list;
   final List<String> cafeName;
 
-  ImageSlider(
-      {Key? key, required this.text, required this.subtext, required this.list, required this.cafeName})
+  Recommend(
+      {Key? key,
+      required this.text,
+      required this.subtext,
+      required this.list,
+      required this.cafeName})
       : super(key: key);
 
   late final List<Widget> imageSliders = list

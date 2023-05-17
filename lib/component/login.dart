@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hipspot/const/auth/target_oauth.dart';
+import 'package:hipspot/utils/authenticate.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -47,7 +49,9 @@ class Login extends StatelessWidget {
                   height: 56,
                   fit: BoxFit.cover,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      await Authenticate.login(TargetOauthEnum.apple);
+                    },
                   ),
                 ),
               ),
@@ -55,14 +59,24 @@ class Login extends StatelessWidget {
               Material(
                 color: Colors.transparent,
                 child: Ink.image(
-                  image: const AssetImage('assets/images/mypage/via_google.png'),
+                  image:
+                      const AssetImage('assets/images/mypage/via_google.png'),
                   width: 247,
                   height: 56,
                   fit: BoxFit.cover,
-                  child: InkWell(
-                    onTap: () {},
-                  ),
+                  child: InkWell(onTap: () async {
+                    await Authenticate.login(TargetOauthEnum.google);
+                  }),
                 ),
+              ),
+              const SizedBox(height: 8),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                    child: Text('dev 로그인'),
+                    onTap: () async {
+                      await Authenticate.login(TargetOauthEnum.dev);
+                    }),
               ),
               const Spacer(),
               InkWell(
