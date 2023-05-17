@@ -1,15 +1,9 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hipspot/component/Favorite/favorite_list.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/main.dart';
-import 'package:hipspot/model/favorite_card_model.dart';
-import 'package:hipspot/screen/onboarding_screen.dart';
 import 'package:hipspot/splash_screen.dart';
-import 'package:hipspot/api/favorite.dart';
 import 'package:hipspot/api/user.dart';
 import 'package:hipspot/utils/authenticate.dart';
 import '../../component/delete_account.dart';
@@ -51,8 +45,8 @@ class _MypageScreenState extends State<MypageScreen> {
         child: Scaffold(
           appBar: renderAppBar(name: name),
           body: const Padding(
-              padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-              child: const FavoriteListWidget()),
+              padding: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
+              child: FavoriteListWidget()),
         ));
   }
 
@@ -111,11 +105,13 @@ class _MypageScreenState extends State<MypageScreen> {
                                   fontSize: 16,
                                   color: const Color(0xFFCCCCCC))),
                           onTap: () async {
-                            if (await Authenticate.logout()) ;
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()));
+                            if (await Authenticate.logout()) {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const HomeScreen()));
+                            }
                           }),
                       const SizedBox(width: 20),
                       Container(

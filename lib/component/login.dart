@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_auth/flutter_web_auth.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hipspot/const/auth/target_oauth.dart';
 import 'package:hipspot/utils/authenticate.dart';
 
 class Login extends StatelessWidget {
@@ -50,7 +49,9 @@ class Login extends StatelessWidget {
                   height: 56,
                   fit: BoxFit.cover,
                   child: InkWell(
-                    onTap: () {},
+                    onTap: () async {
+                      await Authenticate.login(TargetOauthEnum.apple);
+                    },
                   ),
                 ),
               ),
@@ -64,7 +65,7 @@ class Login extends StatelessWidget {
                   height: 56,
                   fit: BoxFit.cover,
                   child: InkWell(onTap: () async {
-                    await Authenticate.login();
+                    await Authenticate.login(TargetOauthEnum.google);
                   }),
                 ),
               ),

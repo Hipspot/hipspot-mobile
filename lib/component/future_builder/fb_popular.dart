@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hipspot/model/recommend_page/high_rated.dart';
 import 'package:hipspot/model/recommend_page/newly_opened.dart';
-import '../../services/remote_service.dart';
 
 class FbImage extends StatelessWidget {
   final int rank;
   final Future<List<dynamic>?> Function() remoteServiceCall;
 
-  const FbImage({super.key, required this.rank, required this.remoteServiceCall});
+  const FbImage(
+      {super.key, required this.rank, required this.remoteServiceCall});
 
   @override
   Widget build(BuildContext context) {

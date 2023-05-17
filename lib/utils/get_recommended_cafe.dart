@@ -1,12 +1,12 @@
 import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // n 지우고 바로바로 data[n-1]['imageUrl'][0] 이런식으로 작성
 // 한 번만 호출하고 위에처럼 사용
 Future<String> getRecommendedCafe() async {
-  final response = await http.get(Uri.parse('https://api.hipspot.xyz/cafe/recommend/high-rated'));
+  final response = await http
+      .get(Uri.parse('https://api.hipspot.xyz/cafe/recommend/high-rated'));
 
   if (response.statusCode == 200) {
     final data = json.decode(response.body);
@@ -30,7 +30,6 @@ class MyWidget extends StatelessWidget {
           } else {
             return const CircularProgressIndicator();
           }
-        }
-    );
+        });
   }
 }

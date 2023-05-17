@@ -15,7 +15,6 @@ class ImageSlider extends StatefulWidget {
 }
 
 class _ImageSliderState extends State<ImageSlider> {
-
   late final List<Widget> imageSliders = widget.list
       .map((item) => Container(
             margin: const EdgeInsets.all(5.0),

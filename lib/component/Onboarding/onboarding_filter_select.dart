@@ -138,7 +138,7 @@ class _FilterState extends State<Filter> with SingleTickerProviderStateMixin {
 }
 
 class _AnimatedIcon extends StatelessWidget {
-  const _AnimatedIcon({super.key, required this.isSelected});
+  const _AnimatedIcon({required this.isSelected});
   final bool isSelected;
 
   @override
@@ -160,8 +160,7 @@ class _AnimatedIcon extends StatelessWidget {
 
 class _AnimatedText extends StatelessWidget {
   const _AnimatedText(
-      {super.key,
-      required this.animation,
+      {required this.animation,
       required this.isSelected,
       required this.beforeSelected,
       required this.filterName});
@@ -192,7 +191,7 @@ class _AnimatedText extends StatelessWidget {
 }
 
 class _AnimatedUnderBar extends StatelessWidget {
-  const _AnimatedUnderBar({super.key, required this.animation});
+  const _AnimatedUnderBar({required this.animation});
 
   final Animation<double> animation;
 

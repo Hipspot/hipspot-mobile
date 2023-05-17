@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hipspot/main.dart';
 
 class UserApi {
@@ -20,7 +19,7 @@ class UserApi {
 
   Future<bool> unRegister() async {
     try {
-      var response = await _client.delete(path);
+      await _client.delete(path);
     } catch (e) {
       print(e);
       return false;

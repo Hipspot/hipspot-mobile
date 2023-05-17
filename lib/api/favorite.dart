@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hipspot/main.dart';
 
 class FavoriteApi {
@@ -26,8 +25,7 @@ class FavoriteApi {
 
   Future<bool> add(String cafeId) async {
     try {
-      var response =
-          await _client.patch(path, data: {'type': "add", 'cafeId': cafeId});
+      await _client.patch(path, data: {'type': "add", 'cafeId': cafeId});
     } catch (e) {
       print(e);
       return false;
@@ -37,8 +35,7 @@ class FavoriteApi {
 
   Future<bool> remove(String cafeId) async {
     try {
-      var response =
-          await _client.patch(path, data: {'type': 'remove', 'cafeId': cafeId});
+      await _client.patch(path, data: {'type': 'remove', 'cafeId': cafeId});
     } catch (e) {
       print(e);
       return false;

@@ -2,10 +2,6 @@ import 'dart:async';
 import 'package:hipspot/component/Webview/utils/config_navigation_delegate.dart';
 import 'package:hipspot/component/Webview/utils/create_WebView_Controller.dart';
 import 'package:hipspot/main.dart';
-// Import for Android features.
-import 'package:webview_flutter_android/webview_flutter_android.dart';
-// Import for iOS features.
-import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 import 'package:flutter/material.dart';
 import 'package:hipspot/const/channel_function_list.dart';
 import 'package:hipspot/const/channel_name.dart';
@@ -21,7 +17,6 @@ class WebviewScreen extends StatefulWidget {
 
 class _WebviewScreenState extends State<WebviewScreen> {
   int loadingProgress = 0;
-  final _dio = dio;
   late final WebViewController _controller = createWebViewController()
     ..loadRequest(Uri.parse('https://hipspot.netlify.app/'))
     ..setNavigationDelegate(customedNavigationDelegate);
@@ -42,12 +37,9 @@ class TestButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _dio = dio;
     return TextButton(
         child: const Text('test'),
         onPressed: () async {
-          print(123123);
-          await _dio.get('http://localhost:5001/favorite');
           sendToWeb(TransferMessage(
               type: AppToWebFunctionList.initFilterling.name, data: "test"));
         });
