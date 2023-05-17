@@ -1,4 +1,4 @@
-enum Texts {
+enum RecommendTitleTextEnum {
   closestText("현재 위치에서 가장 가까운 카페"),
   closestSubText(""),
   highRatedText("후기가 좋은 카페"),
@@ -9,7 +9,7 @@ enum Texts {
   popularSubText("많은 유저들이 즐겨찾기한 카페");
 
   final String text;
-  const Texts(this.text);
+  const RecommendTitleTextEnum(this.text);
 
   @override
   String toString() => text;

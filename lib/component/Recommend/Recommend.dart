@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class ImageSlider extends StatefulWidget {
-  final List<String> list;
+class Recommend extends StatelessWidget {
   final String text;
   final String subtext;
+  final List<String> list;
+  final List<String> cafeName;
 
-  const ImageSlider(
-      {Key? key, required this.text, required this.subtext, required this.list})
+  Recommend(
+      {Key? key,
+      required this.text,
+      required this.subtext,
+      required this.list,
+      required this.cafeName})
       : super(key: key);
 
-  @override
-  State<ImageSlider> createState() => _ImageSliderState();
-}
-
-class _ImageSliderState extends State<ImageSlider> {
-  late final List<Widget> imageSliders = widget.list
+  late final List<Widget> imageSliders = list
       .map((item) => Container(
             margin: const EdgeInsets.all(5.0),
             child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 child: Stack(
                   children: <Widget>[
-                    // 수정 필요한 부분
                     Image.network(item,
                         width: 280, height: 416, fit: BoxFit.fill),
                     Positioned(
@@ -43,7 +42,7 @@ class _ImageSliderState extends State<ImageSlider> {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                         child: Text(
-                          'No. ${widget.list.indexOf(item) + 1} image',
+                          cafeName[list.indexOf(item)],
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18.0,
@@ -62,40 +61,32 @@ class _ImageSliderState extends State<ImageSlider> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        if (widget.subtext.isNotEmpty) ...[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 40, 0, 0),
-            child: Text(
-              widget.text,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+        // column 활용
+        Padding(
+          padding: const EdgeInsets.fromLTRB(15, 40, 0, 2),
+          child: Text(
+            text,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
             ),
           ),
+        ),
+        if (subtext.isNotEmpty)
           Padding(
-            padding: const EdgeInsets.fromLTRB(15, 3, 0, 10),
+            padding: const EdgeInsets.fromLTRB(15, 0, 0, 2),
             child: Text(
-              widget.subtext,
+              subtext,
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0xff737373),
               ),
             ),
-          )
-        ] else ...[
-          Padding(
-            padding: const EdgeInsets.fromLTRB(15, 40, 0, 10),
-            child: Text(
-              widget.text,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
           ),
-        ],
+        const SizedBox(
+          height: 8,
+        ),
         CarouselSlider(
           options: CarouselOptions(
               height: 416,
