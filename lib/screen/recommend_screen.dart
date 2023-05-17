@@ -53,26 +53,26 @@ class _RecommendScreenState extends State<RecommendScreen> {
             children: [
               // map 해보기
               // 3장만 받지 말고 있는 사진 다 가져오기
-              ImageSlider(
+              Recommend(
                 text: RecommendTitleTextEnum.closestText.toString(),
                 subtext: RecommendTitleTextEnum.closestSubText.toString(),
                 list: closestList?.map((e) => e.imageUrl[0]).toList() ?? [],
                 cafeName: closestList?.map((e) => e.cafeName).toList() ?? [],
               ),
-              ImageSlider(
+              Recommend(
                 text: RecommendTitleTextEnum.highRatedText.toString(),
                 subtext: RecommendTitleTextEnum.highRatedSubText.toString(),
                 list: highRatedList?.map((e) => e.imageUrl[0]).toList() ?? [],
                 cafeName: highRatedList?.map((e) => e.cafeName).toList() ?? [],
               ),
-              ImageSlider(
+              Recommend(
                 text: RecommendTitleTextEnum.newlyOpenedText.toString(),
                 subtext: RecommendTitleTextEnum.newlyOpenedSubText.toString(),
                 list: newlyOpenedList?.map((e) => e.imageUrl[0]).toList() ?? [],
                 cafeName:
                     newlyOpenedList?.map((e) => e.cafeName).toList() ?? [],
               ),
-              ImageSlider(
+              Recommend(
                 text: RecommendTitleTextEnum.popularText.toString(),
                 subtext: RecommendTitleTextEnum.popularSubText.toString(),
                 list: closestList?.map((e) => e.imageUrl[0]).toList() ?? [],
