@@ -69,6 +69,15 @@ class Login extends StatelessWidget {
                   }),
                 ),
               ),
+              const SizedBox(height: 8),
+              Material(
+                color: Colors.transparent,
+                child: InkWell(
+                    child: Text('dev 로그인'),
+                    onTap: () async {
+                      await Authenticate.login(TargetOauthEnum.dev);
+                    }),
+              ),
               const Spacer(),
               InkWell(
                 onTap: () {

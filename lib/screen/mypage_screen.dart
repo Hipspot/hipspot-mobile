@@ -105,13 +105,14 @@ class _MypageScreenState extends State<MypageScreen> {
                                   fontSize: 16,
                                   color: const Color(0xFFCCCCCC))),
                           onTap: () async {
-                            if (await Authenticate.logout()) {
-                              Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const HomeScreen()));
-                            }
+                            await Authenticate.logout();
+                            // if (await Authenticate.logout()) {
+                            //   Navigator.pushReplacement(
+                            //       context,
+                            //       MaterialPageRoute(
+                            //           builder: (context) =>
+                            //               const HomeScreen()));
+                            // }
                           }),
                       const SizedBox(width: 20),
                       Container(

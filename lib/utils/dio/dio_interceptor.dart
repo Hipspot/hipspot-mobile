@@ -40,11 +40,11 @@ class DioOnRequestInterceptor extends InterceptorsWrapper {
 class DioOnErrorInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    print('onError interceptor ${err.response?.statusCode}');
+    // print('onError interceptor ${err.response?.statusCode}');
     var originResponse = err.response;
 
     if (originResponse?.statusCode == 700) {
-      print('서버에서 엑세스토큰, 리프레시토큰 전달받음');
+      print('statusCdoe : ${err.response?.statusCode},서버에서 엑세스토큰, 리프레시토큰 전달받음');
       /**
        * 상태코드 700으로 온 경우, 서버에서 토큰 전달해준 상황
        * 메시지 body에서 토큰 파싱.
