@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:hipspot/const/auth/keys.dart';
 import 'package:hipspot/main.dart';
 import 'package:hipspot/utils/token_storage.dart';
 
@@ -8,9 +9,6 @@ class DioOnRequestInterceptor extends InterceptorsWrapper {
       RequestOptions options, RequestInterceptorHandler handler) async {
     String? accessToken = await TokenStorage.getAccessToken();
     String? refreshToken = await TokenStorage.getRefreshToken();
-
-    print(
-        "요청 시 토큰 확인 accessToken:${accessToken!.substring(accessToken.length - 6)}, refreshToken:${refreshToken!.substring(refreshToken.length - 6)})}");
 
     /**
      * 토큰 관련 유효성 체크는 서버에서 진행하므로 토큰 둘 다 없을 시에만 에러처리
@@ -24,12 +22,14 @@ class DioOnRequestInterceptor extends InterceptorsWrapper {
       handler.reject(error);
     }
 
+    print(
+        "요청 시 토큰 확인 accessToken:${accessToken!.substring(accessToken.length - 6)}, refreshToken:${refreshToken!.substring(refreshToken.length - 6)})}");
     /**
      * 매 요청 전에 쿼리 추가, 엑세스토큰, 리프레시토큰 추가
      */
     options.queryParameters.addAll({'platform': 'mobile'});
     options.headers['Authorization'] = 'Bearer ${accessToken!}';
-    options.headers['Cookie'] = 'hipspot_refresh_token=${refreshToken!}';
+    options.headers['Cookie'] = '$COOKIE_REFRESH_TOKEN_KEY=${refreshToken!}';
 
     // print('header --- ${options.headers}');
     handler.next(options);
@@ -50,8 +50,8 @@ class DioOnErrorInterceptor extends InterceptorsWrapper {
        * 메시지 body에서 토큰 파싱.
        */
       var body = originResponse?.data;
-      var refreshToken = body['refresh_token'];
-      var accessToken = body['access_token'];
+      var accessToken = body[ACCESS_TOKEN_KEY];
+      var refreshToken = body[REFRESH_TOKEN_KEY];
 
       print(
           "재발급된 토큰 accessToken:${accessToken!.substring(accessToken.length - 6)}, refreshToken:${refreshToken!.substring(refreshToken.length - 6)})}");
