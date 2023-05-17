@@ -9,7 +9,8 @@ class DioOnRequestInterceptor extends InterceptorsWrapper {
     String? accessToken = await TokenStorage.getAccessToken();
     String? refreshToken = await TokenStorage.getRefreshToken();
 
-    print('요청전 토큰 확인, $accessToken, $refreshToken');
+    print(
+        "요청 시 토큰 확인 accessToken:${accessToken!.substring(accessToken.length - 6)}, refreshToken:${refreshToken!.substring(refreshToken.length - 6)})}");
 
     /**
      * 토큰 관련 유효성 체크는 서버에서 진행하므로 토큰 둘 다 없을 시에만 에러처리
@@ -30,7 +31,7 @@ class DioOnRequestInterceptor extends InterceptorsWrapper {
     options.headers['Authorization'] = 'Bearer ${accessToken!}';
     options.headers['Cookie'] = 'hipspot_refresh_token=${refreshToken!}';
 
-    print('header --- ${options.headers}');
+    // print('header --- ${options.headers}');
     handler.next(options);
     return;
   }
@@ -39,10 +40,11 @@ class DioOnRequestInterceptor extends InterceptorsWrapper {
 class DioOnErrorInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
-    print('onError 확인 ${err.type} , ${err.message}');
+    print('onError interceptor ${err.response?.statusCode}');
     var originResponse = err.response;
 
     if (originResponse?.statusCode == 700) {
+      print('서버에서 엑세스토큰, 리프레시토큰 전달받음');
       /**
        * 상태코드 700으로 온 경우, 서버에서 토큰 전달해준 상황
        * 메시지 body에서 토큰 파싱.
@@ -50,6 +52,9 @@ class DioOnErrorInterceptor extends InterceptorsWrapper {
       var body = originResponse?.data;
       var refreshToken = body['refresh_token'];
       var accessToken = body['access_token'];
+
+      print(
+          "재발급된 토큰 accessToken:${accessToken!.substring(accessToken.length - 6)}, refreshToken:${refreshToken!.substring(refreshToken.length - 6)})}");
 
       /**
        * 토큰 없는 경우, 다시 에러 처리
@@ -71,7 +76,9 @@ class DioOnErrorInterceptor extends InterceptorsWrapper {
        * 새로운 토큰으로 기존 요청 url로 재요청,
        * 요청 이후 받은 응답 resolve
        */
+
       Response response = await reRequestToOrigin(err);
+      print('재발급된 토큰으로 api 요청, $response');
       handler.resolve(response);
       return;
     }

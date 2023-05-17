@@ -19,13 +19,13 @@ class Authenticate {
         callbackUrlScheme: APP_REDIRECT_URI,
       );
 
-      print("auth $result");
-
       final String? accessToken =
           Uri.parse(result).queryParameters['access_token'];
       final String? refreshToken =
           Uri.parse(result).queryParameters['refresh_token'];
 
+      print(
+          "로그인 이후 accessToken:${accessToken!.substring(accessToken.length - 6)}, refreshToken:${refreshToken!.substring(refreshToken.length - 6)})}");
       if (accessToken == null || refreshToken == null) {
         throw Exception('토큰이 없습니다.');
       }
