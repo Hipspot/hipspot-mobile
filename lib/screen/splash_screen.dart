@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hipspot/screen/home_screen.dart';
 import 'dart:async';
-
-import 'package:hipspot/screen/onboarding_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -65,20 +64,6 @@ class _SplashScreenState extends State<SplashScreen>
             height: 32.75,
           ),
         ),
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        extendBody: true,
-        body: OnboardingScreen(),
       ),
     );
   }

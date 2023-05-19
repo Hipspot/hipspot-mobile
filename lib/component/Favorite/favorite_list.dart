@@ -3,6 +3,7 @@ import 'package:hipspot/component/Favorite/favorite_card.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/model/favorite_card_model.dart';
 import 'package:hipspot/api/favorite.dart';
+import 'package:hipspot/screen/main_screen.dart';
 import 'package:hipspot/utils/authenticate.dart';
 
 class FavoriteListWidget extends StatefulWidget {
@@ -37,7 +38,11 @@ class _FavoriteListWidgetState extends State<FavoriteListWidget> {
       }
     } catch (e) {
       print('Failed to load data, $e');
-      showLoginModal(context);
+      showLoginModal(
+          context,
+          MainScreen(
+            propIndex: 2,
+          ));
     }
   }
 
@@ -60,7 +65,11 @@ class _FavoriteListWidgetState extends State<FavoriteListWidget> {
       });
     } catch (e) {
       print(e);
-      showLoginModal(context);
+      showLoginModal(
+          context,
+          MainScreen(
+            propIndex: 2,
+          ));
     }
   }
 

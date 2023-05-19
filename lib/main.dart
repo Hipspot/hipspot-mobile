@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:dio/dio.dart';
-import 'package:hipspot/component/login.dart';
-import 'package:hipspot/splash_screen.dart';
+import 'package:hipspot/screen/splash_screen.dart';
 import 'package:hipspot/utils/dio/dio_interceptor.dart';
 
 final dio = Dio();
@@ -29,11 +28,4 @@ class MyApp extends StatelessWidget {
       home: SplashScreen(),
     );
   }
-}
-
-void showLoginModal(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (context) => const Login(),
-  );
 }

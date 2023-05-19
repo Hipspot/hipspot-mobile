@@ -72,8 +72,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               selectedFilter: selectedFilter,
               beforeSelectedFilter: beforeSelectedFilter,
               onTap: () => {
-                Navigator.of(context)
-                    .push(SlideRightRoute(page: const MainScreen()))
+                Navigator.of(context).push(SlideRightRoute(page: MainScreen()))
               },
             ),
           ],

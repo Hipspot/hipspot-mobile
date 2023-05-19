@@ -6,7 +6,10 @@ import 'package:hipspot/screen/mypage_screen.dart';
 import 'package:hipspot/screen/recommend_screen.dart';
 
 class MainScreen extends StatefulWidget {
-  const MainScreen({Key? key}) : super(key: key);
+  int? _propIndex;
+  MainScreen({Key? key, int? propIndex}) : super(key: key) {
+    _propIndex = propIndex;
+  }
 
   @override
   State<MainScreen> createState() => _MainScreenState();
@@ -15,11 +18,17 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   final storage = FlutterSecureStorage();
-  final Widget alivePage = KeepAliveWidget(child: WebviewScreen());
+  final Widget alivePage = const KeepAliveWidget(child: WebviewScreen());
   late Widget currentPage;
   final List<Widget> _pages = [
-    KeepAliveWidget(child: WebviewScreen()),
+    const KeepAliveWidget(child: WebviewScreen()),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    _onItemTapped(widget._propIndex ?? 0);
+  }
 
   void _onItemTapped(int index) async {
     print(index);
@@ -31,7 +40,10 @@ class _MainScreenState extends State<MainScreen> {
         return showDialog(
             context: context,
             builder: (BuildContext context) {
-              return const Login();
+              print('login창 띄우기, index=2');
+              return Login(
+                nextRouteWidget: MainScreen(propIndex: 2),
+              );
             });
       }
     }
