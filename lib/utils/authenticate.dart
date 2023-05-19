@@ -46,9 +46,10 @@ class Authenticate {
   }
 }
 
-void showLoginModal(BuildContext context) {
+void showLoginModal(BuildContext context, Widget nextRouteWidget) {
+  print('showLoginModal, nextWidget:${nextRouteWidget}');
   showDialog(
     context: context,
-    builder: (context) => const Login(),
+    builder: (context) => Login(nextRouteWidget: nextRouteWidget),
   );
 }

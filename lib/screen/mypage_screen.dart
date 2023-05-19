@@ -3,8 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:hipspot/component/Favorite/favorite_list.dart';
 import 'package:hipspot/const/font_family.dart';
 import 'package:hipspot/main.dart';
-import 'package:hipspot/splash_screen.dart';
 import 'package:hipspot/api/user.dart';
+import 'package:hipspot/screen/splash_screen.dart';
 import 'package:hipspot/utils/authenticate.dart';
 import '../../component/delete_account.dart';
 import '../../const/color/gray_scale_color.dart';
@@ -43,14 +43,15 @@ class _MypageScreenState extends State<MypageScreen> {
     return SafeArea(
         top: false,
         child: Scaffold(
-          appBar: renderAppBar(name: name),
+          appBar: renderAppBar(context: context, name: name),
           body: const Padding(
               padding: EdgeInsets.symmetric(vertical: 32, horizontal: 16),
               child: FavoriteListWidget()),
         ));
   }
 
-  PreferredSizeWidget renderAppBar({required String name}) {
+  PreferredSizeWidget renderAppBar(
+      {required BuildContext context, required String name}) {
     return AppBar(
       systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: grayScaleColor[10],
@@ -105,14 +106,13 @@ class _MypageScreenState extends State<MypageScreen> {
                                   fontSize: 16,
                                   color: const Color(0xFFCCCCCC))),
                           onTap: () async {
-                            await Authenticate.logout();
-                            // if (await Authenticate.logout()) {
-                            //   Navigator.pushReplacement(
-                            //       context,
-                            //       MaterialPageRoute(
-                            //           builder: (context) =>
-                            //               const HomeScreen()));
-                            // }
+                            if (await Authenticate.logout()) {
+                              Navigator.of(context).pushAndRemoveUntil(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          const HomeScreen()),
+                                  (Route<dynamic> route) => false);
+                            }
                           }),
                       const SizedBox(width: 20),
                       Container(

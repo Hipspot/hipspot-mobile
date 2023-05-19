@@ -3,7 +3,29 @@ import 'package:hipspot/const/auth/target_oauth.dart';
 import 'package:hipspot/utils/authenticate.dart';
 
 class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+  Widget? _nextRouteWidget = null;
+  Login({Key? key, Widget? nextRouteWidget}) : super(key: key) {
+    _nextRouteWidget = nextRouteWidget;
+    print('로그인 위젯 생성자, $_nextRouteWidget');
+  }
+
+  initState() {
+    print("로그인 위젯, $_nextRouteWidget");
+  }
+
+  void _onTap(BuildContext context, TargetOauthEnum targetOauthEnum) async {
+    try {
+      await Authenticate.login(targetOauthEnum);
+    } catch (e) {
+      return print(e);
+    }
+
+    print("다음빌드위젯 $_nextRouteWidget");
+    if (_nextRouteWidget != null) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => _nextRouteWidget!));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,10 +71,7 @@ class Login extends StatelessWidget {
                   height: 56,
                   fit: BoxFit.cover,
                   child: InkWell(
-                    onTap: () async {
-                      await Authenticate.login(TargetOauthEnum.apple);
-                    },
-                  ),
+                      onTap: () => _onTap(context, TargetOauthEnum.apple)),
                 ),
               ),
               const SizedBox(height: 8),
@@ -64,19 +83,16 @@ class Login extends StatelessWidget {
                   width: 247,
                   height: 56,
                   fit: BoxFit.cover,
-                  child: InkWell(onTap: () async {
-                    await Authenticate.login(TargetOauthEnum.google);
-                  }),
+                  child: InkWell(
+                      onTap: () => _onTap(context, TargetOauthEnum.google)),
                 ),
               ),
               const SizedBox(height: 8),
               Material(
                 color: Colors.transparent,
                 child: InkWell(
-                    child: Text('dev 로그인'),
-                    onTap: () async {
-                      await Authenticate.login(TargetOauthEnum.dev);
-                    }),
+                    child: const Text('dev 로그인'),
+                    onTap: () => _onTap(context, TargetOauthEnum.dev)),
               ),
               const Spacer(),
               InkWell(
