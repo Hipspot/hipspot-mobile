@@ -53,28 +53,28 @@ class _RecommendScreenState extends State<RecommendScreen> {
             children: [
               // map 해보기
               // 3장만 받지 말고 있는 사진 다 가져오기
-              ImageSlider(
-                text: RecommendTitleTextEnum.closestText.toString(),
-                subtext: RecommendTitleTextEnum.closestSubText.toString(),
-                list: closestList?.map((e) => e.imageUrl[0]).toList() ?? [],
+              Recommend(
+                title: RecommendTitleTextEnum.closestText.toString(),
+                subtitle: RecommendTitleTextEnum.closestSubText.toString(),
+                cafeImageUrlList: closestList?.map((e) => e.imageUrl[0]).toList() ?? [],
                 cafeName: closestList?.map((e) => e.cafeName).toList() ?? [],
               ),
-              ImageSlider(
-                text: RecommendTitleTextEnum.highRatedText.toString(),
-                subtext: RecommendTitleTextEnum.highRatedSubText.toString(),
-                list: highRatedList?.map((e) => e.imageUrl[0]).toList() ?? [],
+              Recommend(
+                title: RecommendTitleTextEnum.highRatedText.toString(),
+                subtitle: RecommendTitleTextEnum.highRatedSubText.toString(),
+                cafeImageUrlList: highRatedList?.map((e) => e.imageUrl[0]).toList() ?? [],
                 cafeName: highRatedList?.map((e) => e.cafeName).toList() ?? [],
               ),
-              ImageSlider(
-                text: RecommendTitleTextEnum.newlyOpenedText.toString(),
-                subtext: RecommendTitleTextEnum.newlyOpenedSubText.toString(),
-                list: newlyOpenedList?.map((e) => e.imageUrl[0]).toList() ?? [],
+              Recommend(
+                title: RecommendTitleTextEnum.newlyOpenedText.toString(),
+                subtitle: RecommendTitleTextEnum.newlyOpenedSubText.toString(),
+                cafeImageUrlList: newlyOpenedList?.map((e) => e.imageUrl[0]).toList() ?? [],
                 cafeName: newlyOpenedList?.map((e) => e.cafeName).toList() ?? [],
               ),
-              ImageSlider(
-                text: RecommendTitleTextEnum.popularText.toString(),
-                subtext: RecommendTitleTextEnum.popularSubText.toString(),
-                list: closestList?.map((e) => e.imageUrl[0]).toList() ?? [],
+              Recommend(
+                title: RecommendTitleTextEnum.popularText.toString(),
+                subtitle: RecommendTitleTextEnum.popularSubText.toString(),
+                cafeImageUrlList: closestList?.map((e) => e.imageUrl[0]).toList() ?? [],
                 cafeName: closestList?.map((e) => e.cafeName).toList() ?? [],
               ),
             ],

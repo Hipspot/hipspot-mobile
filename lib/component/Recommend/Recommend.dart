@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class ImageSlider extends StatelessWidget {
-  final String text;
-  final String subtext;
-  final List<String> list;
+class Recommend extends StatelessWidget {
+  final String title;
+  final String subtitle;
+  final List<String> cafeImageUrlList;
   final List<String> cafeName;
 
-  ImageSlider(
-      {Key? key, required this.text, required this.subtext, required this.list, required this.cafeName})
+  Recommend(
+      {Key? key, required this.title, required this.subtitle, required this.cafeImageUrlList, required this.cafeName})
       : super(key: key);
 
-  late final List<Widget> imageSliders = list
+  late final List<Widget> imageSliders = cafeImageUrlList
       .map((item) => Container(
             margin: const EdgeInsets.all(5.0),
             child: ClipRRect(
@@ -38,7 +38,7 @@ class ImageSlider extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
                         child: Text(
-                          cafeName[list.indexOf(item)],
+                          cafeName[cafeImageUrlList.indexOf(item)],
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18.0,
@@ -61,18 +61,18 @@ class ImageSlider extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 40, 0, 2),
           child: Text(
-            text,
+            title,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        if (subtext.isNotEmpty)
+        if (subtitle.isNotEmpty)
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 0, 2),
             child: Text(
-              subtext,
+              subtitle,
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -81,7 +81,7 @@ class ImageSlider extends StatelessWidget {
             ),
           ),
         const SizedBox(
-          height: 8,
+          height: 10,
         ),
         CarouselSlider(
           options: CarouselOptions(
