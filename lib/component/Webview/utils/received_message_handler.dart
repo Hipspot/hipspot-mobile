@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hipspot/const/channel_function_list.dart';
 import 'package:hipspot/const/channel_name.dart';
@@ -30,6 +31,18 @@ class ReceivedMessageHandler {
       case WebToAppFunctionsList.openLoginModal:
         {
           print('openLoginModal 실행');
+          return;
+        }
+      case WebToAppFunctionsList.getNotchHeight:
+        {
+          final devicePixelRatio =
+              WidgetsBinding.instance.window.devicePixelRatio;
+          final notchHeightPixel =
+              WidgetsBinding.instance.window.padding.top / devicePixelRatio;
+          TransferMessage message = TransferMessage(
+              type: AppToWebFunctionList.setNotchHeight.name,
+              data: notchHeightPixel);
+          sendToWeb(message, controller);
           return;
         }
       default:
