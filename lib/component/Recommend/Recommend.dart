@@ -1,24 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../const/recommend_title_text_enum.dart';
+
 class Recommend extends StatelessWidget {
   final String title;
   final String subtitle;
-  final List<String> cafeImageUrlList;
-  final List<String> cafeName;
+  final List<dynamic>? listType;
 
-  Recommend(
-      {Key? key, required this.title, required this.subtitle, required this.cafeImageUrlList, required this.cafeName})
-      : super(key: key);
+  Recommend({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.listType,
+  }) : super(key: key);
 
-  late final List<Widget> imageSliders = cafeImageUrlList
+  late final List<Widget> imageSliders = listType!
       .map((item) => Container(
             margin: const EdgeInsets.all(5.0),
             child: ClipRRect(
                 borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 child: Stack(
                   children: <Widget>[
-                    Image.network(item,
+                    Image.network(item.imageUrl[0],
                         width: 280, height: 416, fit: BoxFit.fill),
                     Positioned(
                       bottom: 0.0,
@@ -37,13 +41,56 @@ class Recommend extends StatelessWidget {
                         ),
                         padding: const EdgeInsets.symmetric(
                             vertical: 10.0, horizontal: 20.0),
-                        child: Text(
-                          cafeName[cafeImageUrlList.indexOf(item)],
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              item.cafeName,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            Row(
+                              children: [
+                                if (subtitle == RecommendTitleTextEnum.highRatedSubTitle.toString()) ...[
+                                  const Icon(
+                                    Icons.star_rounded,
+                                    color: Colors.white,
+                                    size: 18.0,
+                                  ),
+                                  const SizedBox(width: 3),
+                                  Text(
+                                    item.star.toString(),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                ] else ...[
+                                  const Icon(
+                                    Icons.arrow_right_alt,
+                                    color: Colors.white,
+                                    size: 18.0,
+                                  ),
+                                  const SizedBox(width: 3),
+                                  Text(
+                                    '${item.distance.round().toString()}m',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.italic,
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            )
+                          ],
                         ),
                       ),
                     ),
