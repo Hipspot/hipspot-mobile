@@ -57,8 +57,14 @@ class ReceivedMessageHandler {
       case WebToAppFunctionsList.removeFavorite:
         {
           print('removeFavorite 실행');
+          print(data);
           return;
         }
+      case WebToAppFunctionsList.getIsWebView:
+        TransferMessage message = TransferMessage(
+            type: AppToWebFunctionList.setIsWebView.name, data: null);
+        sendToWeb(message, controller);
+        return;
       default:
         throw Error();
     }
