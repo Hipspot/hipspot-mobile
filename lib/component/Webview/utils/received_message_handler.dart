@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:hipspot/const/channel_function_list.dart';
 import 'package:hipspot/const/channel_name.dart';
@@ -8,12 +9,14 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 class ReceivedMessageHandler {
   ReceivedMessageHandler(
-      {required WebToAppFunctionsList functionType, required controller}) {
-    run(functionType, controller);
+      {required WebToAppFunctionsList functionType,
+      required controller,
+      required functionData}) {
+    run(functionType, functionData, controller);
   }
 
-  Future<void> run(
-      WebToAppFunctionsList function, WebViewController controller) async {
+  Future<void> run(WebToAppFunctionsList function, data,
+      WebViewController controller) async {
     switch (function) {
       case WebToAppFunctionsList.getMyLocation:
         {
@@ -43,6 +46,17 @@ class ReceivedMessageHandler {
               type: AppToWebFunctionList.setNotchHeight.name,
               data: notchHeightPixel);
           sendToWeb(message, controller);
+          return;
+        }
+      case WebToAppFunctionsList.addFavorite:
+        {
+          print('addFavorite 실행');
+          print(data);
+          return;
+        }
+      case WebToAppFunctionsList.removeFavorite:
+        {
+          print('removeFavorite 실행');
           return;
         }
       default:

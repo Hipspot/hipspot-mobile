@@ -13,6 +13,8 @@ enum WebToAppFunctionsList {
   getAuth('getAuth'),
   openLoginModal('openLoginModal'),
   getNotchHeight('getNotchHeight'),
+  addFavorite('addFavorite'),
+  removeFavorite('removeFavorite'),
   error("ERROR"); //웹에서 보낸 메세지의 type 프로퍼티를 fromName으로 체크하는데, null인 경우
 
   const WebToAppFunctionsList(this.name);
