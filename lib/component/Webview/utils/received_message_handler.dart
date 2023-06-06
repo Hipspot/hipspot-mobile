@@ -7,6 +7,8 @@ import 'package:hipspot/model/trensfer_message_model.dart';
 import 'package:hipspot/utils/get_my_location.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../../../api/favorite.dart';
+
 class ReceivedMessageHandler {
   ReceivedMessageHandler(
       {required WebToAppFunctionsList functionType,
@@ -50,14 +52,32 @@ class ReceivedMessageHandler {
         }
       case WebToAppFunctionsList.addFavorite:
         {
-          print('addFavorite 실행');
-          print(data);
+          await FavoriteApi().add(data);
+          final response = await FavoriteApi().getList();
+          if (response.statusCode == 200) {
+            var fetchedData = response.data;
+            data = fetchedData['favoriteList'].map((e) => e['cafeId']).toList();
+            TransferMessage message = TransferMessage(
+                type: AppToWebFunctionList.setFavoriteList.name, data: data);
+            sendToWeb(message, controller);
+          } else {
+            print(response);
+          }
           return;
         }
       case WebToAppFunctionsList.removeFavorite:
         {
-          print('removeFavorite 실행');
-          print(data);
+          await FavoriteApi().remove(data);
+          final response = await FavoriteApi().getList();
+          if (response.statusCode == 200) {
+            var fetchedData = response.data;
+            data = fetchedData['favoriteList'].map((e) => e['cafeId']).toList();
+            TransferMessage message = TransferMessage(
+                type: AppToWebFunctionList.setFavoriteList.name, data: data);
+            sendToWeb(message, controller);
+          } else {
+            print(response);
+          }
           return;
         }
       case WebToAppFunctionsList.getIsWebView:
@@ -65,6 +85,19 @@ class ReceivedMessageHandler {
             type: AppToWebFunctionList.setIsWebView.name, data: null);
         sendToWeb(message, controller);
         return;
+      case WebToAppFunctionsList.getFavoriteList:
+        final response = await FavoriteApi().getList();
+        if (response.statusCode == 200) {
+          var fetchedData = response.data;
+          data = fetchedData['favoriteList'].map((e) => e['cafeId']).toList();
+          TransferMessage message = TransferMessage(
+              type: AppToWebFunctionList.setFavoriteList.name, data: data);
+          sendToWeb(message, controller);
+        } else {
+          print(response);
+        }
+        return;
+
       default:
         throw Error();
     }
