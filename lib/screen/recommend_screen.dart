@@ -44,37 +44,40 @@ class _RecommendScreenState extends State<RecommendScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: allLoaded,
-      replacement: const Center(child: CircularProgressIndicator()),
-      child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            children: [
-              // map 해보기
-              // 3장만 받지 말고 있는 사진 다 가져오기
-              Recommend(
-                title: RecommendTitleTextEnum.closestTitle.toString(),
-                subtitle: RecommendTitleTextEnum.closestSubTitle.toString(),
-                listType: closestList,
-              ),
-              Recommend(
-                title: RecommendTitleTextEnum.highRatedTitle.toString(),
-                subtitle: RecommendTitleTextEnum.highRatedSubTitle.toString(),
-                listType: highRatedList,
-              ),
-              Recommend(
-                title: RecommendTitleTextEnum.newlyOpenedTitle.toString(),
-                subtitle: RecommendTitleTextEnum.newlyOpenedSubTitle.toString(),
-                listType: newlyOpenedList,
-              ),
-              Recommend(
-                title: RecommendTitleTextEnum.popularTitle.toString(),
-                subtitle: RecommendTitleTextEnum.popularSubTitle.toString(),
-                listType: closestList,
-              ),
-            ],
-          )),
+    return Container(
+      color: Colors.white,
+      child: Visibility(
+        visible: allLoaded,
+        replacement: const Center(child: CircularProgressIndicator()),
+        child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                // map 해보기
+                // 3장만 받지 말고 있는 사진 다 가져오기
+                Recommend(
+                  title: RecommendTitleTextEnum.closestTitle.toString(),
+                  subtitle: RecommendTitleTextEnum.closestSubTitle.toString(),
+                  listType: closestList,
+                ),
+                Recommend(
+                  title: RecommendTitleTextEnum.highRatedTitle.toString(),
+                  subtitle: RecommendTitleTextEnum.highRatedSubTitle.toString(),
+                  listType: highRatedList,
+                ),
+                Recommend(
+                  title: RecommendTitleTextEnum.newlyOpenedTitle.toString(),
+                  subtitle: RecommendTitleTextEnum.newlyOpenedSubTitle.toString(),
+                  listType: newlyOpenedList,
+                ),
+                Recommend(
+                  title: RecommendTitleTextEnum.popularTitle.toString(),
+                  subtitle: RecommendTitleTextEnum.popularSubTitle.toString(),
+                  listType: closestList,
+                ),
+              ],
+            )),
+      ),
     );
   }
 }

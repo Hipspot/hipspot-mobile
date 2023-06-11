@@ -7,6 +7,9 @@ import 'package:hipspot/component/Onboarding/onboarding_title.dart';
 import 'package:hipspot/component/slide_right_route.dart';
 import 'package:hipspot/const/filter_list.dart';
 import 'package:hipspot/screen/main_screen.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+import '../const/channel_name.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -16,6 +19,7 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
+  WebViewController? _controller;
   // state
   FilterListEnum beforeSelectedFilter = FilterListEnum.hipSpot;
   FilterListEnum selectedFilter = FilterListEnum.hipSpot;
@@ -72,7 +76,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               selectedFilter: selectedFilter,
               beforeSelectedFilter: beforeSelectedFilter,
               onTap: () => {
-                Navigator.of(context).push(SlideRightRoute(page: MainScreen()))
+                Navigator.of(context).push(SlideRightRoute(page: MainScreen())),
+                if (_controller != null){
+                  _controller!.runJavaScript(
+                      'window.$APP_TO_WEB_CHANNEL_NAME(${selectedFilter.toString()})')
+                }
               },
             ),
           ],
