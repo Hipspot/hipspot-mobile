@@ -18,7 +18,7 @@ class WebviewScreen extends StatefulWidget {
 class _WebviewScreenState extends State<WebviewScreen> {
   int loadingProgress = 0;
   late final WebViewController _controller = createWebViewController()
-    ..loadRequest(Uri.parse('https://hipspot.xyz/'))
+    ..loadRequest(Uri.parse('https://deploy-preview-109--hipspot.netlify.app/'))
     ..setNavigationDelegate(customedNavigationDelegate);
 
   @override
