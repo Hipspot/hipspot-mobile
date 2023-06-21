@@ -81,6 +81,7 @@ class ReceivedMessageHandler {
           return;
         }
       case WebToAppFunctionsList.getIsWebView:
+        isWebviewInit = true;
         TransferMessage message = TransferMessage(
             type: AppToWebFunctionList.setIsWebView.name, data: null);
         sendToWeb(message, controller);
@@ -103,8 +104,10 @@ class ReceivedMessageHandler {
     }
   }
 
-  void sendToWeb(TransferMessage message, WebViewController controller) {
+  static void sendToWeb(TransferMessage message, WebViewController controller) {
     controller.runJavaScript(
         'window.$APP_TO_WEB_CHANNEL_NAME(${message.toJson().toString().trim()})');
   }
+
+  static bool isWebviewInit = false;
 }

@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hipspot/component/Webview/utils/received_message_handler.dart';
 import 'package:hipspot/screen/webview_screen.dart';
 import 'package:hipspot/component/login.dart';
 import 'package:hipspot/screen/mypage_screen.dart';
 import 'package:hipspot/screen/recommend_screen.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../api/favorite.dart';
 import '../component/Webview/utils/config_navigation_delegate.dart';
 import '../component/Webview/utils/create_WebView_Controller.dart';
+import '../const/channel_function_list.dart';
+import '../model/trensfer_message_model.dart';
 
 class MainScreen extends StatefulWidget {
   int? _propIndex;
@@ -38,6 +42,22 @@ class _MainScreenState extends State<MainScreen> {
     _onItemTapped(widget._propIndex ?? 0);
   }
 
+  void setFavoriteListToWeb() async {
+    if (!ReceivedMessageHandler.isWebviewInit) return;
+
+    final response = await FavoriteApi().getList();
+    if (response.statusCode == 200) {
+      var fetchedData = response.data;
+      var data = fetchedData['favoriteList'].map((e) => e['cafeId']).toList();
+
+      TransferMessage message = TransferMessage(
+          type: AppToWebFunctionList.setFavoriteList.name, data: data);
+      ReceivedMessageHandler.sendToWeb(message, _controller);
+    } else {
+      print(response);
+    }
+  }
+
   void _onItemTapped(int index) async {
     print(index);
     if (index == 2) {
@@ -62,12 +82,13 @@ class _MainScreenState extends State<MainScreen> {
       switch (index) {
         case 0:
           _pages[0] = alivePage;
+          setFavoriteListToWeb();
           break;
         case 1:
-          _pages.add(RecommendScreen());
+          _pages.add(const RecommendScreen());
           break;
         case 2:
-          _pages.add(MypageScreen());
+          _pages.add(const MypageScreen());
           break;
       }
     });
