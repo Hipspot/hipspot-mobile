@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:hipspot/const/channel_function_list.dart';
 import 'package:hipspot/const/channel_name.dart';
 import 'package:hipspot/model/trensfer_message_model.dart';
+import 'package:hipspot/screen/onboarding_screen.dart';
 import 'package:hipspot/utils/get_my_location.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -99,8 +100,17 @@ class ReceivedMessageHandler {
         }
         return;
 
+      case WebToAppFunctionsList.getOnboardingFilter:
+        {
+          final onboardingFilterName = selectedFilterIndex;
+          TransferMessage message = TransferMessage(
+              type: AppToWebFunctionList.setOnboardingFilter.name,
+              data: onboardingFilterName);
+          sendToWeb(message, controller);
+          return;
+        }
       default:
-        throw Error();
+        print("ReceivedMessageHandler default 에러");
     }
   }
 

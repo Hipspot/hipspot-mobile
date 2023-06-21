@@ -1,59 +1,102 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../../const/recommend_title_text_enum.dart';
+
 class Recommend extends StatelessWidget {
-  final String text;
-  final String subtext;
-  final List<String> list;
-  final List<String> cafeName;
+  final String title;
+  final String subtitle;
+  final List<dynamic>? listType;
 
-  Recommend(
-      {Key? key,
-      required this.text,
-      required this.subtext,
-      required this.list,
-      required this.cafeName})
-      : super(key: key);
+  Recommend({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.listType,
+  }) : super(key: key);
 
-  late final List<Widget> imageSliders = list
+  late final List<Widget> imageSliders = listType!
       .map((item) => Container(
-            margin: const EdgeInsets.all(5.0),
-            child: ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                child: Stack(
-                  children: <Widget>[
-                    Image.network(item,
-                        width: 280, height: 416, fit: BoxFit.fill),
-                    Positioned(
-                      bottom: 0.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color.fromARGB(200, 0, 0, 0),
-                              Color.fromARGB(0, 0, 0, 0)
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                          ),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 20.0),
-                        child: Text(
-                          cafeName[list.indexOf(item)],
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
+    margin: const EdgeInsets.all(5.0),
+    child: ClipRRect(
+        borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+        child: Stack(
+          children: <Widget>[
+            Image.network(item.imageUrl[0],
+                width: 280, height: 416, fit: BoxFit.fill),
+            Positioned(
+              bottom: 0.0,
+              left: 0.0,
+              right: 0.0,
+              child: Container(
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color.fromARGB(200, 0, 0, 0),
+                      Color.fromARGB(0, 0, 0, 0)
+                    ],
+                    begin: Alignment.bottomCenter,
+                    end: Alignment.topCenter,
+                  ),
+                ),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      item.cafeName,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
+                    const SizedBox(height: 5),
+                    Row(
+                      children: [
+                        if (subtitle == RecommendTitleTextEnum.highRatedSubTitle.toString()) ...[
+                          const Icon(
+                            Icons.star_rounded,
+                            color: Colors.white,
+                            size: 18.0,
+                          ),
+                          const SizedBox(width: 3),
+                          Text(
+                            item.star.toString(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ] else ...[
+                          const Icon(
+                            Icons.arrow_right_alt,
+                            color: Colors.white,
+                            size: 18.0,
+                          ),
+                          const SizedBox(width: 3),
+                          Text(
+                            '${item.distance.round().toString()}m',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
+                      ],
+                    )
                   ],
-                )),
-          ))
+                ),
+              ),
+            ),
+          ],
+        )),
+  ))
       .toList();
 
   @override
@@ -65,18 +108,18 @@ class Recommend extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.fromLTRB(15, 40, 0, 2),
           child: Text(
-            text,
+            title,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        if (subtext.isNotEmpty)
+        if (subtitle.isNotEmpty)
           Padding(
             padding: const EdgeInsets.fromLTRB(15, 0, 0, 2),
             child: Text(
-              subtext,
+              subtitle,
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -85,7 +128,7 @@ class Recommend extends StatelessWidget {
             ),
           ),
         const SizedBox(
-          height: 8,
+          height: 10,
         ),
         CarouselSlider(
           options: CarouselOptions(

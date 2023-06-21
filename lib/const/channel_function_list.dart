@@ -4,7 +4,8 @@ enum AppToWebFunctionList {
   setMyLocation('setMyLocation'),
   setNotchHeight('setNotchHeight'),
   setIsWebView('setIsWebView'),
-  setFavoriteList('setFavoriteList');
+  setFavoriteList('setFavoriteList'),
+  setOnboardingFilter("setOnboardingFilter");
 
   const AppToWebFunctionList(this.name);
   final String name;
@@ -19,6 +20,7 @@ enum WebToAppFunctionsList {
   removeFavorite('removeFavorite'),
   getIsWebView('getIsWebView'),
   getFavoriteList('getFavoriteList'),
+  getOnboardingFilter("getOnboardingFilter"),
   error("ERROR"); //웹에서 보낸 메세지의 type 프로퍼티를 fromName으로 체크하는데, null인 경우
 
   const WebToAppFunctionsList(this.name);

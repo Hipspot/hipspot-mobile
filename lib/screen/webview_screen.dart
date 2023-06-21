@@ -8,15 +8,24 @@ import 'package:hipspot/const/channel_name.dart';
 import 'package:hipspot/model/trensfer_message_model.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebviewScreen extends StatelessWidget {
-  final WebViewController webViewController;
-  const WebviewScreen({super.key, required this.webViewController});
+class WebviewScreen extends StatefulWidget {
+  const WebviewScreen({Key? key}) : super(key: key);
+
+  @override
+  State<WebviewScreen> createState() => _WebviewScreenState();
+}
+
+class _WebviewScreenState extends State<WebviewScreen> {
+  int loadingProgress = 0;
+  late final WebViewController _controller = createWebViewController()
+    ..loadRequest(Uri.parse('https://hipspot.xyz/'))
+    ..setNavigationDelegate(customedNavigationDelegate);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: WebViewWidget(controller: webViewController),
-      // floatingActionButton: TestButton(webViewController: webViewController),
+      body: WebViewWidget(controller: _controller),
+      // floatingActionButton: TestButton(webViewController: _controller),
     );
   }
 }
