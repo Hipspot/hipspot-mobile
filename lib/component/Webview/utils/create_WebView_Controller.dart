@@ -32,7 +32,10 @@ WebViewController createWebViewController() {
   controller.addJavaScriptChannel(WEB_TO_APP_CHANNEL_NAME,
       onMessageReceived: (JavaScriptMessage message) {
     ReceivedMessage parsed = ReceivedMessage(message: message);
-    ReceivedMessageHandler(controller: controller, functionType: parsed.type);
+    ReceivedMessageHandler(
+        controller: controller,
+        functionType: parsed.type,
+        functionData: parsed.data);
   });
 
   return controller;
