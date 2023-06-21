@@ -8,6 +8,8 @@ import 'package:hipspot/component/slide_right_route.dart';
 import 'package:hipspot/const/filter_list.dart';
 import 'package:hipspot/screen/main_screen.dart';
 
+String selectedFilterIndex = '';
+
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -72,7 +74,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               selectedFilter: selectedFilter,
               beforeSelectedFilter: beforeSelectedFilter,
               onTap: () => {
-                Navigator.of(context).push(SlideRightRoute(page: MainScreen()))
+                Navigator.of(context).push(SlideRightRoute(page: MainScreen())),
+                selectedFilterIndex = selectedFilter.index.toString()
               },
             ),
           ],
