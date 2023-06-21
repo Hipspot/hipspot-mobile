@@ -4,6 +4,10 @@ import 'package:hipspot/screen/webview_screen.dart';
 import 'package:hipspot/component/login.dart';
 import 'package:hipspot/screen/mypage_screen.dart';
 import 'package:hipspot/screen/recommend_screen.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+import '../component/Webview/utils/config_navigation_delegate.dart';
+import '../component/Webview/utils/create_WebView_Controller.dart';
 
 class MainScreen extends StatefulWidget {
   int? _propIndex;
@@ -18,10 +22,14 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
   final storage = FlutterSecureStorage();
-  final Widget alivePage = const KeepAliveWidget(child: WebviewScreen());
+  final WebViewController _controller = createWebViewController()
+    ..loadRequest(Uri.parse('https://hipspot.xyz/'))
+    ..setNavigationDelegate(customedNavigationDelegate);
+  late final Widget alivePage =
+      KeepAliveWidget(child: WebviewScreen(webViewController: _controller));
   late Widget currentPage;
-  final List<Widget> _pages = [
-    const KeepAliveWidget(child: WebviewScreen()),
+  late final List<Widget> _pages = [
+    KeepAliveWidget(child: WebviewScreen(webViewController: _controller)),
   ];
 
   @override
