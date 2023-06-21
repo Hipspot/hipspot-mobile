@@ -35,10 +35,10 @@ class ReceivedMessageHandler {
         }
       case WebToAppFunctionsList.getOnboardingFilter:
         {
-          final OnboardingFilterName = selectedFilterIndex;
+          final onboardingFilterName = selectedFilterIndex;
           TransferMessage message = TransferMessage(
               type: AppToWebFunctionList.setOnboardingFilter.name,
-              data: OnboardingFilterName);
+              data: onboardingFilterName);
           sendToWeb(message, controller);
           return;
         }
