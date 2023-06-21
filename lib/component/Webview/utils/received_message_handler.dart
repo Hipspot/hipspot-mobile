@@ -43,7 +43,7 @@ class ReceivedMessageHandler {
           return;
         }
       default:
-        throw Error();
+        print("ReceivedMessageHandler default 에러");
     }
   }
 
